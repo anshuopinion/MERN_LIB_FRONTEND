@@ -77,7 +77,7 @@ function ListCard({ book, disable, openHandler, deleteBookHandler }) {
   const { sendRequest, loading, error, clearError } = useHttpClient();
 
   const deleteBook = async () => {
-    await sendRequest(`/api/books/${book._id}`, "delete").then((res) => {
+    await sendRequest(`/books/${book._id}`, "delete").then((res) => {
       deleteBookHandler(book._id);
     });
   };

@@ -67,7 +67,7 @@ const BooksPanel = ({ disable }) => {
 
   useEffect(() => {
     const fetchBooks = async () => {
-      const { data } = await sendRequest("/api/books", "get");
+      const { data } = await sendRequest("/books", "get");
       setLoadedBooks(data);
     };
     fetchBooks();
