@@ -16,16 +16,14 @@ const AddBookCard = styled(StyledCard)`
   }
 `;
 
-function AddNewBook({ disable }) {
-  const [open,setOpen] = useState(false)
+function AddNewBook({ disable, createLoadedBooks }) {
+  const [open, setOpen] = useState(false);
 
   const closeUpdatePanel = () => {
-    setOpen(false)
-   
+    setOpen(false);
   };
   const openUpdatePanel = () => {
-    setOpen(true)
-   
+    setOpen(true);
   };
 
   return (
@@ -39,6 +37,7 @@ function AddNewBook({ disable }) {
         closeUpdatePanel={closeUpdatePanel}
         open={open}
         close={closeUpdatePanel}
+        createLoadedBooks={createLoadedBooks}
       />
     </StyledAddNewBook>
   );

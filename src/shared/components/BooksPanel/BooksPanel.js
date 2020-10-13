@@ -3,8 +3,10 @@ import styled from "styled-components";
 import CardHeading from "./CardHeading";
 import UpdateSection from "./AddNewBook";
 import ListCard from "./ListCard";
-import axios from "axios";
+import axios from "../../../axios";
 import InputCard from "./InputCard";
+import { CircularProgress } from "@material-ui/core";
+import { useHttpClient } from "../../../hooks/http-hooks";
 const Container = styled.section`
   border-radius: 1rem;
   margin-top: 1rem;
@@ -25,62 +27,97 @@ const Container = styled.section`
 `;
 
 const BooksPanel = ({ disable }) => {
-  const [books, setBooks] = useState([]);
+  const [loadedBooks, setLoadedBooks] = useState([]);
   const [listID, setListID] = useState("");
-
   const [open, setOpen] = useState(false);
+  const { error, clearError, loading, sendRequest } = useHttpClient();
 
-  const fetchBooks = async () => {
-    const { data } = await axios.get("http://localhost:9000/api/books");
-    setBooks(data);
-    
+  const deleteBookHandler = async (bookId) => {
+    setLoadedBooks((prevLoadedBooks) =>
+      prevLoadedBooks.filter((book) => book._id !== bookId)
+    );
+  };
+
+  const closeEditHandler = () => {
+    setOpen(false);
+  };
+  const openEditHandler = (bookId) => {
+    setOpen(true);
+    setListID(bookId);
+  };
+
+  // add new book to use State hook
+  const createLoadedBooks = (book) => {
+    console.log(book);
+    setLoadedBooks([book, ...loadedBooks]);
+    console.log(loadedBooks);
+  };
+
+  //
+
+  const updateLoadedBook = async (book) => {
+   // delete book with same id
+    await setLoadedBooks((prevLoadedBooks) =>
+      prevLoadedBooks.filter((loadedBook) => book._id !== loadedBook._id)
+    );
+    // store book with same id
+    setLoadedBooks((prevLoadedBooks) => [book, ...prevLoadedBooks]);
   };
 
   useEffect(() => {
+    const fetchBooks = async () => {
+      const { data } = await sendRequest("/api/books", "get");
+      setLoadedBooks(data);
+    };
     fetchBooks();
-  }, []);
+  }, [sendRequest]);
 
-  const closeHandler = () => {
-    setOpen(false);
-  };
-  const openHandler = (listId) => {
-    setOpen(false);
-    setListID(listId);
-  };
   return (
     <>
       <Container>
         <CardHeading />
-        <UpdateSection disable={disable} />
-        {books.map((book, i) => {
-          if (listID === book.id) {
-            return open ? (
-              <InputCard
-                open={open}
-                book={book}
-                close={closeHandler}
-                key={book.id}
-                edit
-              />
-            ) : (
+        <UpdateSection
+          disable={disable}
+          createLoadedBooks={createLoadedBooks}
+        />
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          loadedBooks.map((book, i) => {
+            if (listID === book._id) {
+              return open ? (
+                listID === book._id && (
+                  <InputCard
+                    open={open}
+                    book={book}
+                    close={closeEditHandler}
+                    key={book._id}
+                    updateLoadedBook={updateLoadedBook}
+                    edit
+                  />
+                )
+              ) : (
+                <ListCard
+                  book={book}
+                  disable={disable}
+                  openHandler={openEditHandler}
+                  deleteBookHandler={deleteBookHandler}
+                  key={book._id}
+                />
+              );
+            }
+
+            return (
               <ListCard
                 book={book}
+                key={book._id}
                 disable={disable}
-                openHandler={openHandler}
-                key={book.id}
+                openHandler={openEditHandler}
+                deleteBookHandler={deleteBookHandler}
               />
             );
-          }
-
-          return (
-            <ListCard
-              book={book}
-              key={book.id}
-              disable={disable}
-              openHandler={openHandler}
-            />
-          );
-        })}
+          })
+        )}
       </Container>
     </>
   );

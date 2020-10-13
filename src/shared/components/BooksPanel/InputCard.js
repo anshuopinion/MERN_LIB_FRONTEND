@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
@@ -12,8 +12,8 @@ import {
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StyledCard } from "../../../elements";
-import axios from "axios";
 
+import { useHttpClient } from "../../../hooks/http-hooks";
 const StyledInputCard = styled(StyledCard)`
   .crossBtn {
     position: relative;
@@ -82,10 +82,16 @@ const CircularCard = styled(StyledCard)`
   border: 1px solid #ccc;
   height: 10rem;
 `;
-function InputCard({ open, close, book, edit }) {
-  const [Loading, setLoading] = useState(false);
-
-  return Loading ? (
+function InputCard({
+  open,
+  close,
+  book,
+  edit,
+  createLoadedBooks,
+  updateLoadedBook,
+}) {
+  const { loading, sendRequest } = useHttpClient();
+  return loading ? (
     <>
       <CircularCard>
         <CircularProgress />
@@ -106,28 +112,37 @@ function InputCard({ open, close, book, edit }) {
             ? {
                 bookName: "",
                 authorName: "",
-                totalBooks: 0,
-                book_Image: undefined,
-                bookid: 0,
+                totalBook: 0,
+                bookImage: undefined,
+                bookId: 0,
               }
             : {
                 bookName: book?.name,
                 authorName: book?.author,
-                totalBooks: parseInt(book?.total_book),
-                book_Image: book?.bookImage,
-                bookid: book?.bookid,
+                totalBook: parseInt(book?.totalBook),
+                bookImage: book?.bookImage,
+                bookId: book?.bookId,
               }
         }
         onSubmit={async (values) => {
-          const book = {
+          const bookData = {
             name: values.bookName,
             author: values.authorName,
-            total_book: values.totalBooks,
-            bookid: values.bookid,
+            totalBook: values.totalBook,
+            bookId: values.bookId,
+            issue: false,
           };
-
-          const { data } = await axios.post(book);
-          console.log(data);
+          if (edit) {
+            // Update Mode
+            const {data} = await sendRequest(`/api/books/${book._id}`,'patch',bookData);
+            updateLoadedBook(data);
+            close();
+          } else {
+            // Create Mode
+            const { data } = await sendRequest("/api/books", "post", bookData);
+            createLoadedBooks(data);
+            close();
+          }
         }}
       >
         {(props) => (
@@ -163,10 +178,10 @@ function InputCard({ open, close, book, edit }) {
                 <FormLabel>Upload Image</FormLabel>
                 <input
                   type="file"
-                  name="book_Image"
-                  id="book_Image"
+                  name="bookImage"
+                  id="bookImage"
                   onChange={(event) => {
-                    props.setFieldValue("book_Image", event.target.files[0]);
+                    props.setFieldValue("bookImage", event.target.files[0]);
                   }}
                 />
               </FormControl>
@@ -178,8 +193,8 @@ function InputCard({ open, close, book, edit }) {
                   size="small"
                   type="number"
                   variant="outlined"
-                  name="totalBooks"
-                  id="totalBooks"
+                  name="totalBook"
+                  id="totalBook"
                   placeholder="Total No of Books..."
                   component={TextField}
                 />
@@ -190,8 +205,8 @@ function InputCard({ open, close, book, edit }) {
                   size="small"
                   type="number"
                   variant="outlined"
-                  name="bookid"
-                  id="bookid"
+                  name="bookId"
+                  id="bookId"
                   placeholder="Enter Book Id..."
                   component={TextField}
                 />

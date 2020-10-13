@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { StyledCard } from "../../../elements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons/faEdit";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import { Button } from "@material-ui/core";
-
+import { Button, CircularProgress } from "@material-ui/core";
+import { useHttpClient } from "../../../hooks/http-hooks";
 
 const StyledListCard = styled(StyledCard)`
   display: ${(props) => (props.open ? "" : "none")};
@@ -72,47 +72,58 @@ const IssueBtn = styled(Button)`
   padding: 0.2rem 2rem;
 `;
 
-function ListCard({ book, disable, openHandler }) {
- 
-  
+function ListCard({ book, disable, openHandler, deleteBookHandler }) {
+  const { sendRequest, loading, error } = useHttpClient();
+
+  const deleteBook = async () => {
+    await sendRequest(`/api/books/${book._id}`, "delete").then((res) => {
+      deleteBookHandler(book._id);
+    });
+  };
 
   return (
     <>
       <StyledListCard open={true}>
-        <span className="sno">{book.bookid}</span>
-        <span className="bookwrapper">
-          <span className="book-img">
-            <img src={book.bookImage.url} alt="book" />
-          </span>
-          <span> {book.name}</span>
-        </span>
-        <span className="author">{book.author}</span>
-        <span className="no-books">{book.total_book}</span>
-        <span className="issue">
-          {!disable ? (
-            <div className="icons">
-              <span>
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  size="2x"
-                  onClick={() => openHandler(book.id)}
-                />
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            <span className="sno">{book.bookId}</span>
+            <span className="bookwrapper">
+              <span className="book-img">
+                <img src={book.bookImage} alt="book" />
               </span>
+              <span> {book.name}</span>
+            </span>
+            <span className="author">{book.author}</span>
+            <span className="no-books">{book.totalBook}</span>
+            <span className="issue">
+              {!disable ? (
+                <div className="icons">
+                  <span>
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      size="2x"
+                      onClick={() => openHandler(book._id)}
+                    />
+                  </span>
 
-              <span>
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  size="2x"
-                  
-                />
-              </span>
-            </div>
-          ) : (
-            <IssueBtn issued={book.issue.toString()}>
-              {book.issue ? "Issed" : "Issue"}
-            </IssueBtn>
-          )}
-        </span>
+                  <span>
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      size="2x"
+                      onClick={deleteBook}
+                    />
+                  </span>
+                </div>
+              ) : (
+                <IssueBtn issued={book.issue.toString()}>
+                  {book.issue ? "Issed" : "Issue"}
+                </IssueBtn>
+              )}
+            </span>
+          </>
+        )}
       </StyledListCard>
     </>
   );

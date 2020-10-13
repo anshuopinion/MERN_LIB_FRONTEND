@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import AddNewStudent from "./AddNewStudent";
+// import AddNewStudent from "./AddNewStudent";
 import StudentLists from "./StudentLists";
 
 const StyledStudentControl = styled.section`

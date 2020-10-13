@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
 import { MainContainer } from "../elements";
@@ -75,6 +75,12 @@ const StudentLogin = () => {
           <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={(values) => {
+          
+
+              
+
+
+
               if ((values.email === email && values.password) || password) {
                 history.replace("/student");
               }
