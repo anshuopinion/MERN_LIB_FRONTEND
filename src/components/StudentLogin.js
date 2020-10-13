@@ -2,8 +2,8 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
 import { MainContainer } from "../elements";
-
-import { Card, Button } from "@material-ui/core";
+import * as yup from "yup";
+import { Card, Button, CircularProgress } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
@@ -66,47 +66,63 @@ const SubmitBtn = styled(Button)`
 `;
 
 const StudentLogin = () => {
-  const {sendRequest, error, clearError , loading} = useHttpClient()
+  const { sendRequest, error, clearError, loading } = useHttpClient();
+
+  const initialValues = { email: "", password: "" };
+
+  const validationSchema = yup.object().shape({
+    email: yup.string().email().required(),
+    password: yup.string().min(6, "password is too short").required(),
+  });
+
+  const onSubmit = async (values) => {
+    await sendRequest("/api/students/login");
+
+    if ((values.email === email && values.password) || password) {
+      history.replace("/student");
+    }
+  };
+
   const history = useHistory();
   const email = "anshu@gmail.com";
   const password = "test123";
   return (
     <MainContainer>
-      <ErrorModal  open={error} onClose={clearError} />
+      <ErrorModal error={error} onClose={clearError} />
       <Container>
         <StyledCard>
-          <Title>Student Login</Title>
-          <Formik
-            initialValues={{ email: "", password: "" }}
-            onSubmit={async (values) => {
-          
-              await sendRequest('/api/')
-
-              if ((values.email === email && values.password) || password) {
-                history.replace("/student");
-              }
-            }}
-          >
-            <StyledForm>
-              <Field
-                variant="outlined"
-                type="email"
-                name="email"
-                id="email"
-                label="Enter Email..."
-                component={Input}
-              />
-              <Field
-                variant="outlined"
-                type="password"
-                name="password"
-                id="password"
-                label="Enter Password..."
-                component={Input}
-              />
-              <SubmitBtn type="submit">Submit</SubmitBtn>
-            </StyledForm>
-          </Formik>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <>
+              <Title>Student Login</Title>
+              <Formik
+                initialValues={initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+              >
+                <StyledForm>
+                  <Field
+                    variant="outlined"
+                    type="email"
+                    name="email"
+                    id="email"
+                    label="Enter Email..."
+                    component={Input}
+                  />
+                  <Field
+                    variant="outlined"
+                    type="password"
+                    name="password"
+                    id="password"
+                    label="Enter Password..."
+                    component={Input}
+                  />
+                  <SubmitBtn type="submit">Submit</SubmitBtn>
+                </StyledForm>
+              </Formik>
+            </>
+          )}
         </StyledCard>
       </Container>
     </MainContainer>

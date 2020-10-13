@@ -20,6 +20,7 @@ const StyledInputCard = styled(StyledCard)`
     position: relative;
     top: -50px;
     left: -5px;
+    color: ${(props) => props.theme.color.error};
   }
 
   background: ${(props) => props.theme.color.light};
@@ -41,8 +42,7 @@ const StyledInputCard = styled(StyledCard)`
 
     .form-parts {
       display: flex;
-      width: 30%;
-      /* height: 9rem; */
+
       justify-content: space-between;
       flex-direction: column;
     }
@@ -66,6 +66,14 @@ const StyledInputCard = styled(StyledCard)`
       padding: 9px 8px;
     }
 
+    .numberInput {
+      width: 13rem;
+
+      .MuiOutlinedInput-input {
+        padding: 9px 8px;
+      }
+    }
+
     & label.Mui-focused {
       color: ${(props) => props.theme.color.formInput};
     }
@@ -81,6 +89,7 @@ const StyledInputCard = styled(StyledCard)`
 const SubmitBtn = styled(Button)`
   align-self: center;
   height: 2rem;
+  width: 5rem;
   background-color: ${(props) => props.theme.color.main};
   &:hover {
     background-color: ${(props) => props.theme.color.second};
@@ -124,7 +133,7 @@ function InputCard({
     bookName: yup.string().min(3).required("Name Required"),
     authorName: yup.string().required("Author Required"),
     totalBook: yup.number().required("Number of Book required"),
-    bookId: yup.number().max(4).required("Book Id required"),
+    bookId: yup.number().max(10000).required("Book Id required"),
   });
 
   // Form Submit method
@@ -222,7 +231,7 @@ function InputCard({
                   </FormControl>
                 </div>
                 <div className="form-parts">
-                  <FormControl>
+                  <FormControl className="numberInput">
                     <FormLabel>Total Books</FormLabel>
                     <Field
                       size="small"
@@ -235,7 +244,7 @@ function InputCard({
                     />
                     {/* <ErrorMessage name="totalBook" /> */}
                   </FormControl>
-                  <FormControl>
+                  <FormControl className="numberInput">
                     <FormLabel>Book ID</FormLabel>
                     <Field
                       size="small"
