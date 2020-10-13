@@ -6,6 +6,7 @@ import { MainContainer } from "../elements";
 import { Card, Button } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { useHistory } from "react-router-dom";
+import { useHttpClient } from "../hooks/http-hooks";
 
 const Container = styled.section`
   height: 100vh;
@@ -64,6 +65,7 @@ const SubmitBtn = styled(Button)`
 `;
 
 const StudentLogin = () => {
+  const {} = useHttpClient()
   const history = useHistory();
   const email = "anshu@gmail.com";
   const password = "test123";
@@ -76,10 +78,7 @@ const StudentLogin = () => {
             initialValues={{ email: "", password: "" }}
             onSubmit={(values) => {
           
-
               
-
-
 
               if ((values.email === email && values.password) || password) {
                 history.replace("/student");
