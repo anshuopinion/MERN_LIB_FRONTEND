@@ -5,13 +5,13 @@ export default {
   color: {
     loginMain: "#60DDD5",
     loginButton: "#60DDa5",
-
+    error: "#f52b18",
     main: "#60DDD5",
     second: "#60DDa5",
     dark: "#00ad91",
     light: "#fff",
-    formInput:"#000",
-    background:"#000"
+    formInput: "#000",
+    background: "#000",
   },
 
   breakpoints: {

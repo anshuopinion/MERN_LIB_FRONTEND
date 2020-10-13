@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { StyledCard } from "../../../elements";
 
 import { useHttpClient } from "../../../hooks/http-hooks";
+import ErrorModal from "../ErrorModal";
 const StyledInputCard = styled(StyledCard)`
   .crossBtn {
     position: relative;
@@ -90,136 +91,149 @@ function InputCard({
   createLoadedBooks,
   updateLoadedBook,
 }) {
-  const { loading, sendRequest } = useHttpClient();
-  return loading ? (
+  const { loading, sendRequest, error, clearError } = useHttpClient();
+  return (
     <>
-      <CircularCard>
-        <CircularProgress />
-      </CircularCard>
+      <ErrorModal error={error} onClose={clearError} />
+      {loading ? (
+        <>
+          <CircularCard>
+            <CircularProgress />
+          </CircularCard>
+        </>
+      ) : (
+        <StyledInputCard open={open}>
+          <FontAwesomeIcon
+            className="crossBtn"
+            icon={faTimes}
+            onClick={close}
+            size="2x"
+          />
+
+          <Formik
+            initialValues={
+              !edit
+                ? {
+                    bookName: "",
+                    authorName: "",
+                    totalBook: 0,
+                    bookImage: undefined,
+                    bookId: 0,
+                  }
+                : {
+                    bookName: book?.name,
+                    authorName: book?.author,
+                    totalBook: parseInt(book?.totalBook),
+                    bookImage: book?.bookImage,
+                    bookId: book?.bookId,
+                  }
+            }
+            onSubmit={async (values) => {
+              const bookData = {
+                name: values.bookName,
+                author: values.authorName,
+                totalBook: values.totalBook,
+                bookId: values.bookId,
+                issue: false,
+              };
+              if (edit) {
+                // Update Mode
+                const { data } = await sendRequest(
+                  `/api/books/${book._id}`,
+                  "patch",
+                  bookData
+                );
+                updateLoadedBook(data);
+                close();
+              } else {
+                // Create Mode
+                const { data } = await sendRequest(
+                  "/api/books",
+                  "post",
+                  bookData
+                );
+                createLoadedBooks(data);
+                close();
+              }
+            }}
+          >
+            {(props) => (
+              <Form className="form">
+                <div className="form-parts">
+                  <FormControl>
+                    <FormLabel>Book Name</FormLabel>
+                    <Field
+                      size="small"
+                      type="text"
+                      name="bookName"
+                      id="bookName"
+                      placeholder="Enter Book Name..."
+                      component={TextField}
+                      variant="outlined"
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Author Name</FormLabel>
+                    <Field
+                      size="small"
+                      variant="outlined"
+                      type="text"
+                      name="authorName"
+                      id="authorName"
+                      placeholder="Enter Author Name..."
+                      component={TextField}
+                    />
+                  </FormControl>
+                </div>
+                <div className="form-parts ">
+                  <FormControl className="upload-img">
+                    <FormLabel>Upload Image</FormLabel>
+                    <input
+                      type="file"
+                      name="bookImage"
+                      id="bookImage"
+                      onChange={(event) => {
+                        props.setFieldValue("bookImage", event.target.files[0]);
+                      }}
+                    />
+                  </FormControl>
+                </div>
+                <div className="form-parts">
+                  <FormControl>
+                    <FormLabel>Total Books</FormLabel>
+                    <Field
+                      size="small"
+                      type="number"
+                      variant="outlined"
+                      name="totalBook"
+                      id="totalBook"
+                      placeholder="Total No of Books..."
+                      component={TextField}
+                    />
+                  </FormControl>
+                  <FormControl>
+                    <FormLabel>Book ID</FormLabel>
+                    <Field
+                      size="small"
+                      type="number"
+                      variant="outlined"
+                      name="bookId"
+                      id="bookId"
+                      placeholder="Enter Book Id..."
+                      component={TextField}
+                    />
+                  </FormControl>
+                </div>
+
+                <Button type="submit">
+                  <FontAwesomeIcon icon={faPlus} /> <pre> Add</pre>
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </StyledInputCard>
+      )}{" "}
     </>
-  ) : (
-    <StyledInputCard open={open}>
-      <FontAwesomeIcon
-        className="crossBtn"
-        icon={faTimes}
-        onClick={close}
-        size="2x"
-      />
-
-      <Formik
-        initialValues={
-          !edit
-            ? {
-                bookName: "",
-                authorName: "",
-                totalBook: 0,
-                bookImage: undefined,
-                bookId: 0,
-              }
-            : {
-                bookName: book?.name,
-                authorName: book?.author,
-                totalBook: parseInt(book?.totalBook),
-                bookImage: book?.bookImage,
-                bookId: book?.bookId,
-              }
-        }
-        onSubmit={async (values) => {
-          const bookData = {
-            name: values.bookName,
-            author: values.authorName,
-            totalBook: values.totalBook,
-            bookId: values.bookId,
-            issue: false,
-          };
-          if (edit) {
-            // Update Mode
-            const {data} = await sendRequest(`/api/books/${book._id}`,'patch',bookData);
-            updateLoadedBook(data);
-            close();
-          } else {
-            // Create Mode
-            const { data } = await sendRequest("/api/books", "post", bookData);
-            createLoadedBooks(data);
-            close();
-          }
-        }}
-      >
-        {(props) => (
-          <Form className="form">
-            <div className="form-parts">
-              <FormControl>
-                <FormLabel>Book Name</FormLabel>
-                <Field
-                  size="small"
-                  type="text"
-                  name="bookName"
-                  id="bookName"
-                  placeholder="Enter Book Name..."
-                  component={TextField}
-                  variant="outlined"
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Author Name</FormLabel>
-                <Field
-                  size="small"
-                  variant="outlined"
-                  type="text"
-                  name="authorName"
-                  id="authorName"
-                  placeholder="Enter Author Name..."
-                  component={TextField}
-                />
-              </FormControl>
-            </div>
-            <div className="form-parts ">
-              <FormControl className="upload-img">
-                <FormLabel>Upload Image</FormLabel>
-                <input
-                  type="file"
-                  name="bookImage"
-                  id="bookImage"
-                  onChange={(event) => {
-                    props.setFieldValue("bookImage", event.target.files[0]);
-                  }}
-                />
-              </FormControl>
-            </div>
-            <div className="form-parts">
-              <FormControl>
-                <FormLabel>Total Books</FormLabel>
-                <Field
-                  size="small"
-                  type="number"
-                  variant="outlined"
-                  name="totalBook"
-                  id="totalBook"
-                  placeholder="Total No of Books..."
-                  component={TextField}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Book ID</FormLabel>
-                <Field
-                  size="small"
-                  type="number"
-                  variant="outlined"
-                  name="bookId"
-                  id="bookId"
-                  placeholder="Enter Book Id..."
-                  component={TextField}
-                />
-              </FormControl>
-            </div>
-
-            <Button type="submit">
-              <FontAwesomeIcon icon={faPlus} /> <pre> Add</pre>
-            </Button>
-          </Form>
-        )}
-      </Formik>
-    </StyledInputCard>
   );
 }
 

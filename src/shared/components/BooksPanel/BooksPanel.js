@@ -3,10 +3,11 @@ import styled from "styled-components";
 import CardHeading from "./CardHeading";
 import UpdateSection from "./AddNewBook";
 import ListCard from "./ListCard";
-import axios from "../../../axios";
+
 import InputCard from "./InputCard";
 import { CircularProgress } from "@material-ui/core";
 import { useHttpClient } from "../../../hooks/http-hooks";
+import ErrorModal from "../ErrorModal";
 const Container = styled.section`
   border-radius: 1rem;
   margin-top: 1rem;
@@ -56,7 +57,7 @@ const BooksPanel = ({ disable }) => {
   //
 
   const updateLoadedBook = async (book) => {
-   // delete book with same id
+    // delete book with same id
     await setLoadedBooks((prevLoadedBooks) =>
       prevLoadedBooks.filter((loadedBook) => book._id !== loadedBook._id)
     );
@@ -74,6 +75,7 @@ const BooksPanel = ({ disable }) => {
 
   return (
     <>
+      <ErrorModal error={error} onClose={clearError} />
       <Container>
         <CardHeading />
         <UpdateSection

@@ -7,6 +7,7 @@ import { Card, Button } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
+import ErrorModal from "../shared/components/ErrorModal";
 
 const Container = styled.section`
   height: 100vh;
@@ -65,20 +66,21 @@ const SubmitBtn = styled(Button)`
 `;
 
 const StudentLogin = () => {
-  const {} = useHttpClient()
+  const {sendRequest, error, clearError , loading} = useHttpClient()
   const history = useHistory();
   const email = "anshu@gmail.com";
   const password = "test123";
   return (
     <MainContainer>
+      <ErrorModal  open={error} onClose={clearError} />
       <Container>
         <StyledCard>
           <Title>Student Login</Title>
           <Formik
             initialValues={{ email: "", password: "" }}
-            onSubmit={(values) => {
+            onSubmit={async (values) => {
           
-              
+              await sendRequest('/api/')
 
               if ((values.email === email && values.password) || password) {
                 history.replace("/student");

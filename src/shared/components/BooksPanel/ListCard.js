@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { StyledCard } from "../../../elements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons/faEdit";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { Button, CircularProgress } from "@material-ui/core";
 import { useHttpClient } from "../../../hooks/http-hooks";
+import ErrorModal from "../ErrorModal";
 
 const StyledListCard = styled(StyledCard)`
   display: ${(props) => (props.open ? "" : "none")};
@@ -73,7 +74,7 @@ const IssueBtn = styled(Button)`
 `;
 
 function ListCard({ book, disable, openHandler, deleteBookHandler }) {
-  const { sendRequest, loading, error } = useHttpClient();
+  const { sendRequest, loading, error, clearError } = useHttpClient();
 
   const deleteBook = async () => {
     await sendRequest(`/api/books/${book._id}`, "delete").then((res) => {
@@ -83,6 +84,7 @@ function ListCard({ book, disable, openHandler, deleteBookHandler }) {
 
   return (
     <>
+      <ErrorModal error={error} onClose={clearError} />
       <StyledListCard open={true}>
         {loading ? (
           <CircularProgress />
