@@ -9,8 +9,9 @@ import { MainContainer, Background } from "../elements";
 import { actionTypes, useStateValue } from "../store";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
-import { CircularProgress } from "@material-ui/core";
+
 import ErrorModal from "../shared/components/ErrorModal";
+import Spinner from "../components/UI/Spinner";
 
 const StyledStudent = styled.div`
   display: grid;
@@ -45,7 +46,7 @@ const Student = () => {
       <ErrorModal error={error} onClose={clearError} />
       <MainContainer>
         {loading ? (
-          <CircularProgress />
+          <Spinner fullPage />
         ) : (
           <StyledStudent>
             <StudentProfile signout={signout} user={loadedUser} />

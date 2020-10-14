@@ -3,12 +3,13 @@ import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
 import { MainContainer } from "../elements";
 import * as yup from "yup";
-import { Card, Button, CircularProgress } from "@material-ui/core";
+import { Card, Button } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
 import ErrorModal from "../shared/components/ErrorModal";
 import { actionTypes, useStateValue } from "../store";
+import Spinner from "./UI/Spinner";
 
 const Container = styled.section`
   height: 100vh;
@@ -95,7 +96,7 @@ const StudentLogin = () => {
       <Container>
         <StyledCard>
           {loading ? (
-            <CircularProgress />
+            <Spinner />
           ) : (
             <>
               <Title>Student Login</Title>

@@ -5,9 +5,10 @@ import UpdateSection from "./AddNewBook";
 import ListCard from "./ListCard";
 
 import InputCard from "./InputCard";
-import { CircularProgress } from "@material-ui/core";
+
 import { useHttpClient } from "../../../hooks/http-hooks";
 import ErrorModal from "../ErrorModal";
+import Spinner from "../../../components/UI/Spinner";
 const Container = styled.section`
   border-radius: 1rem;
   margin-top: 1rem;
@@ -83,7 +84,7 @@ const BooksPanel = ({ disable }) => {
           createLoadedBooks={createLoadedBooks}
         />
         {loading ? (
-          <CircularProgress />
+          <Spinner />
         ) : (
           loadedBooks.map((book, i) => {
             if (listID === book._id) {
