@@ -74,16 +74,18 @@ const StyledCard = styled(Card)`
 `;
 
 const StudentProfile = ({ signout, user }) => {
-  console.log(user);
-
-  const icon = [
-    null,
-    faEnvelopeOpen,
-    faMobile,
-    faUniversity,
-    faBookReader,
-    faCalendarAlt,
-    faCalendarDay,
+  const studentDetails = [
+    { icon: faUser, key: "student id", value: user.data.student_id },
+    // {icon:faEnvelopeOpen,key:'email',value:user.email},
+    { icon: faMobile, key: "mobile no.", value: user.data.mobile },
+    {
+      icon: faUniversity,
+      key: "university id",
+      value: user.data.university_id,
+    },
+    { icon: faBookReader, key: "library card", value: user.data.library_card },
+    { icon: faCalendarAlt, key: "semester", value: user.data.semester },
+    { icon: faCalendarDay, key: "year", value: user.data.year },
   ];
 
   console.log(user);
@@ -98,24 +100,20 @@ const StudentProfile = ({ signout, user }) => {
             <p className="name">{user?.name}</p>
           </User>
 
-          {Object.entries(user?.data).map(([key, value], i) => {
-            if (key === "_id") {
-              return null;
-            }
-            return (
-              <StyledCard key={key}>
-                <Icon>
-                  <FontAwesomeIcon icon={icon[i]} />
-                </Icon>
-                <div className="card-details">
-                  <span className="key">{key.split("_").join(" ")}</span>
-                  <span className="value">
-                    {(key === "semester" && value + "th") || value}
-                  </span>
-                </div>
-              </StyledCard>
-            );
-          })}
+          {studentDetails.map((detail) => (
+            <StyledCard key={detail.key}>
+              <Icon>
+                <FontAwesomeIcon icon={detail.icon} />
+              </Icon>
+              <div className="card-details">
+                <span className="key">{detail.key}</span>
+                <span className="value">
+                  {(detail.key === "semester" && detail.value + "th") ||
+                    detail.value}
+                </span>
+              </div>
+            </StyledCard>
+          ))}
           <span>
             <Button onClick={signout}>SignOut</Button>
           </span>
