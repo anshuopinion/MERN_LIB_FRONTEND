@@ -62,7 +62,7 @@ const StyledCard = styled(Card)`
     align-content: center;
     .key {
       text-align: left;
-
+      text-transform: capitalize;
       align-self: flex-end;
     }
     .value {
@@ -77,7 +77,7 @@ const StudentProfile = ({ signout, user }) => {
   console.log(user);
 
   const icon = [
-    faUser,
+    null,
     faEnvelopeOpen,
     faMobile,
     faUniversity,
@@ -85,18 +85,6 @@ const StudentProfile = ({ signout, user }) => {
     faCalendarAlt,
     faCalendarDay,
   ];
-  // const studentDetails = {
-  //   name: "Rohan Kumar",
-  //   userDetails: {
-  //     Username: "rohanbaba",
-  //     Email: "rohan83@gmail.com",
-  //     Mobile: "7865584623",
-  //     University_ID: "1820210005845",
-  //     Library_Card_No: "785",
-  //     Semester: 6,
-  //     Year: 2017,
-  //   },
-  // };
 
   console.log(user);
   return (
@@ -111,6 +99,9 @@ const StudentProfile = ({ signout, user }) => {
           </User>
 
           {Object.entries(user?.data).map(([key, value], i) => {
+            if (key === "_id") {
+              return null;
+            }
             return (
               <StyledCard key={key}>
                 <Icon>
@@ -118,10 +109,8 @@ const StudentProfile = ({ signout, user }) => {
                 </Icon>
                 <div className="card-details">
                   <span className="key">{key.split("_").join(" ")}</span>
-                  <span classname="value">
-                    {(key === "Semester" && value + "th") ||
-                      (key === "Username" && "@" + value) ||
-                      value}
+                  <span className="value">
+                    {(key === "semester" && value + "th") || value}
                   </span>
                 </div>
               </StyledCard>

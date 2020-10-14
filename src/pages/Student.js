@@ -26,38 +26,50 @@ const StyledStudent = styled.div`
 
 const Student = () => {
   const [{ logout, userId }] = useStateValue();
+  const [loading, setLoading] = useState(true);
+  const { sendRequest, error, clearError } = useHttpClient();
   const [loadedUser, setLoadedUser] = useState();
-  const { sendRequest, error, clearError, loading } = useHttpClient();
   const history = useHistory();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      await sendRequest(`/students/${userId}`, "get")
+        .then((res) => {
+          setLoadedUser(res.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            history.replace("/");
+          }, 2000);
+        });
+    };
+    fetchUser();
+  }, [userId, sendRequest, history]);
   const signout = () => {
     logout();
     history.replace("/");
   };
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data } = await sendRequest(`/students/${userId}`, "get");
-      setLoadedUser(data);
-    };
-    fetchUser();
-  }, [sendRequest, userId]);
   return (
-    <Background>
+    <>
       <ErrorModal error={error} onClose={clearError} />
-      <MainContainer>
-        {loading ? (
-          <Spinner fullPage />
-        ) : (
-          <StyledStudent>
-            <StudentProfile signout={signout} user={loadedUser} />
-            <BooksPanel disable />
-            <PersonalBooks />
-            <RecentUpdates />
-            <SharedBooks />
-          </StyledStudent>
-        )}
-      </MainContainer>
-    </Background>
+      {loading ? (
+        <Spinner fullPage />
+      ) : (
+        <Background>
+          <MainContainer>
+            <StyledStudent>
+              <StudentProfile signout={signout} user={loadedUser} />
+              <BooksPanel disable />
+              <PersonalBooks />
+              <RecentUpdates />
+              <SharedBooks />
+            </StyledStudent>
+          </MainContainer>
+        </Background>
+      )}
+    </>
   );
 };
 
