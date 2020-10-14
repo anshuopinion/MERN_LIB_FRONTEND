@@ -76,16 +76,16 @@ const StudentLogin = () => {
   });
 
   const onSubmit = async (values) => {
-    await sendRequest("/api/students/login");
+    const loginData = { email: values.email, password: values.password };
 
-    if ((values.email === email && values.password) || password) {
+    const { data } = await sendRequest("/students/login", "post", loginData);
+    console.log(data);
+    if (data) {
       history.replace("/student");
     }
   };
 
   const history = useHistory();
-  const email = "anshu@gmail.com";
-  const password = "test123";
   return (
     <MainContainer>
       <ErrorModal error={error} onClose={clearError} />
