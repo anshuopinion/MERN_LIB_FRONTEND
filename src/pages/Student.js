@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StudentProfile from "../components/student/StudentProfile";
 import styled from "styled-components";
 import BooksPanel from "../shared/components/BooksPanel/BooksPanel";
@@ -6,8 +6,11 @@ import PersonalBooks from "../components/student/PersonalBooks";
 import RecentUpdates from "../components/student/RecentUpdates";
 import SharedBooks from "../components/student/SharedBooks";
 import { MainContainer, Background } from "../elements";
-
-
+import { actionTypes, useStateValue } from "../store";
+import { useHistory } from "react-router-dom";
+import { useHttpClient } from "../hooks/http-hooks";
+import { CircularProgress } from "@material-ui/core";
+import ErrorModal from "../shared/components/ErrorModal";
 
 const StyledStudent = styled.div`
   display: grid;
@@ -21,21 +24,40 @@ const StyledStudent = styled.div`
 `;
 
 const Student = () => {
-  
-  return(
-        <Background>
-          <MainContainer>
-            <StyledStudent>
-              <StudentProfile />
-              <BooksPanel disable />
-              <PersonalBooks />
-              <RecentUpdates />
-              <SharedBooks />
-            </StyledStudent>
-          </MainContainer>
-        </Background>
-      )}
-   
+  const [{ logout, userId }] = useStateValue();
+  const [loadedUser, setLoadedUser] = useState();
+  const { sendRequest, error, clearError, loading } = useHttpClient();
+  const history = useHistory();
+  const signout = () => {
+    logout();
+    history.replace("/");
+  };
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data } = await sendRequest(`/students/${userId}`, "get");
+      setLoadedUser(data);
+    };
+    fetchUser();
+  }, [sendRequest, userId]);
+  return (
+    <Background>
+      <ErrorModal error={error} onClose={clearError} />
+      <MainContainer>
+        {loading ? (
+          <CircularProgress />
+        ) : (
+          <StyledStudent>
+            <StudentProfile signout={signout} user={loadedUser} />
+            <BooksPanel disable />
+            <PersonalBooks />
+            <RecentUpdates />
+            <SharedBooks />
+          </StyledStudent>
+        )}
+      </MainContainer>
+    </Background>
+  );
+};
 
 export default Student;

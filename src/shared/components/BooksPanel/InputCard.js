@@ -114,36 +114,36 @@ function InputCard({
 
   const initialValues = !edit
     ? {
-        bookName: "",
-        authorName: "",
-        totalBook: 0,
-        bookImage: undefined,
-        bookId: 0,
+        name: "",
+        author: "",
+        total_books: 0,
+        book_image: undefined,
+        book_id: 0,
       }
     : {
-        bookName: book?.name,
-        authorName: book?.author,
-        totalBook: parseInt(book?.totalBook),
-        bookImage: book?.bookImage,
-        bookId: book?.bookId,
+        name: book?.name,
+        author: book?.author,
+        total_books: parseInt(book?.total_books),
+        book_image: book?.book_image,
+        book_id: book?.book_id,
       };
 
   // Form Validation
   const validationSchema = yup.object().shape({
-    bookName: yup.string().min(3).required("Name Required"),
-    authorName: yup.string().required("Author Required"),
-    totalBook: yup.number().required("Number of Book required"),
-    bookId: yup.number().max(10000).required("Book Id required"),
+    name: yup.string().min(3).required("Name Required"),
+    author: yup.string().required("Author Required"),
+    total_books: yup.number().required("Number of Book required"),
+    book_id: yup.number().max(10000).required("Book Id required"),
   });
 
   // Form Submit method
 
   const onSubmit = async (values) => {
     const bookData = {
-      name: values.bookName,
-      author: values.authorName,
-      totalBook: values.totalBook,
-      bookId: values.bookId,
+      name: values.name,
+      author: values.author,
+      total_books: values.total_books,
+      book_id: values.book_id,
       issue: false,
     };
 
@@ -194,13 +194,13 @@ function InputCard({
                     <Field
                       size="small"
                       type="text"
-                      name="bookName"
-                      id="bookName"
+                      name="name"
+                      id="name"
                       placeholder="Enter Book Name..."
                       component={TextField}
                       variant="outlined"
                     />
-                    {/* <ErrorMessage name="bookName" /> */}
+                    {/* <ErrorMessage name="name" /> */}
                   </FormControl>
                   <FormControl>
                     <FormLabel>Author Name</FormLabel>
@@ -208,12 +208,12 @@ function InputCard({
                       size="small"
                       variant="outlined"
                       type="text"
-                      name="authorName"
-                      id="authorName"
+                      name="author"
+                      id="author"
                       placeholder="Enter Author Name..."
                       component={TextField}
                     />
-                    {/* <ErrorMessage name="authorName" /> */}
+                    {/* <ErrorMessage name="author" /> */}
                   </FormControl>
                 </div>
                 <div className="form-parts ">
@@ -221,13 +221,16 @@ function InputCard({
                     <FormLabel>Upload Image</FormLabel>
                     <input
                       type="file"
-                      name="bookImage"
-                      id="bookImage"
+                      name="book_image"
+                      id="book_image"
                       onChange={(event) => {
-                        props.setFieldValue("bookImage", event.target.files[0]);
+                        props.setFieldValue(
+                          "book_image",
+                          event.target.files[0]
+                        );
                       }}
                     />
-                    {/* <ErrorMessage name="bookImage" /> */}
+                    {/* <ErrorMessage name="book_image" /> */}
                   </FormControl>
                 </div>
                 <div className="form-parts">
@@ -237,12 +240,12 @@ function InputCard({
                       size="small"
                       type="number"
                       variant="outlined"
-                      name="totalBook"
-                      id="totalBook"
+                      name="total_books"
+                      id="total_books"
                       placeholder="Total No of Books..."
                       component={TextField}
                     />
-                    {/* <ErrorMessage name="totalBook" /> */}
+                    {/* <ErrorMessage name="total_books" /> */}
                   </FormControl>
                   <FormControl className="numberInput">
                     <FormLabel>Book ID</FormLabel>
@@ -250,12 +253,12 @@ function InputCard({
                       size="small"
                       type="number"
                       variant="outlined"
-                      name="bookId"
-                      id="bookId"
+                      name="book_id"
+                      id="book_id"
                       placeholder="Enter Book Id..."
                       component={TextField}
                     />
-                    {/* <ErrorMessage name="bookId" /> */}
+                    {/* <ErrorMessage name="book_id" /> */}
                   </FormControl>
                 </div>
 

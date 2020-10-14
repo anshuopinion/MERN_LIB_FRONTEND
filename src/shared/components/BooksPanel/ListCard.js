@@ -90,15 +90,15 @@ function ListCard({ book, disable, openHandler, deleteBookHandler }) {
           <CircularProgress />
         ) : (
           <>
-            <span className="sno">{book.bookId}</span>
+            <span className="sno">{book.book_id}</span>
             <span className="bookwrapper">
               <span className="book-img">
-                <img src={book.bookImage} alt="book" />
+                <img src={book.book_image} alt="book" />
               </span>
               <span> {book.name}</span>
             </span>
             <span className="author">{book.author}</span>
-            <span className="no-books">{book.totalBook}</span>
+            <span className="no-books">{book.total_books}</span>
             <span className="issue">
               {!disable ? (
                 <div className="icons">

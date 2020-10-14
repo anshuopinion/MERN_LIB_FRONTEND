@@ -10,7 +10,6 @@ import { faCalendarDay } from "@fortawesome/free-solid-svg-icons/faCalendarDay";
 import { Button, Card } from "@material-ui/core";
 import styled from "styled-components";
 
-
 const Icon = styled.i`
   text-align: center;
   vertical-align: center;
@@ -74,7 +73,9 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const StudentProfile = () => {
+const StudentProfile = ({ signout, user }) => {
+  console.log(user);
+
   const icon = [
     faUser,
     faEnvelopeOpen,
@@ -84,52 +85,53 @@ const StudentProfile = () => {
     faCalendarAlt,
     faCalendarDay,
   ];
-  const studentDetails = {
-    name: "Rohan Kumar",
-    userDetails: {
-      Username: "rohanbaba",
-      Email: "rohan83@gmail.com",
-      Mobile: "7865584623",
-      University_ID: "1820210005845",
-      Library_Card_No: "785",
-      Semester: 6,
-      Year: 2017,
-    },
-  };
+  // const studentDetails = {
+  //   name: "Rohan Kumar",
+  //   userDetails: {
+  //     Username: "rohanbaba",
+  //     Email: "rohan83@gmail.com",
+  //     Mobile: "7865584623",
+  //     University_ID: "1820210005845",
+  //     Library_Card_No: "785",
+  //     Semester: 6,
+  //     Year: 2017,
+  //   },
+  // };
 
-
-
+  console.log(user);
   return (
     <>
-      <Container>
-        <User>
-          <div className="profile-pic">
-            <FontAwesomeIcon icon={faUser} />
-          </div>
-          <p className="name">{studentDetails.name}</p>
-        </User>
+      {user && (
+        <Container>
+          <User>
+            <div className="profile-pic">
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+            <p className="name">{user?.name}</p>
+          </User>
 
-        {Object.entries(studentDetails.userDetails).map(([key, value], i) => {
-          return (
-            <StyledCard key={key}>
-              <Icon>
-                <FontAwesomeIcon icon={icon[i]} />
-              </Icon>
-              <div className="card-details">
-                <span className="key">{key.split("_").join(" ")}</span>
-                <span classnam="value">
-                  {(key === "Semester" && value + "th") ||
-                    (key === "Username" && "@" + value) ||
-                    value}
-                </span>
-              </div>
-            </StyledCard>
-          );
-        })}
-        <span>
-          <Button >SignOut</Button>
-        </span>
-      </Container>
+          {Object.entries(user?.data).map(([key, value], i) => {
+            return (
+              <StyledCard key={key}>
+                <Icon>
+                  <FontAwesomeIcon icon={icon[i]} />
+                </Icon>
+                <div className="card-details">
+                  <span className="key">{key.split("_").join(" ")}</span>
+                  <span classname="value">
+                    {(key === "Semester" && value + "th") ||
+                      (key === "Username" && "@" + value) ||
+                      value}
+                  </span>
+                </div>
+              </StyledCard>
+            );
+          })}
+          <span>
+            <Button onClick={signout}>SignOut</Button>
+          </span>
+        </Container>
+      )}
     </>
   );
 };

@@ -8,6 +8,7 @@ import { TextField } from "formik-material-ui";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
 import ErrorModal from "../shared/components/ErrorModal";
+import { actionTypes, useStateValue } from "../store";
 
 const Container = styled.section`
   height: 100vh;
@@ -67,7 +68,7 @@ const SubmitBtn = styled(Button)`
 
 const StudentLogin = () => {
   const { sendRequest, error, clearError, loading } = useHttpClient();
-
+  const [{ login }] = useStateValue();
   const initialValues = { email: "", password: "" };
 
   const validationSchema = yup.object().shape({
@@ -78,9 +79,11 @@ const StudentLogin = () => {
   const onSubmit = async (values) => {
     const loginData = { email: values.email, password: values.password };
 
-    const { data } = await sendRequest("/students/login", "post", loginData);
-    console.log(data);
-    if (data) {
+    const {
+      data: { userId, role, token },
+    } = await sendRequest("/students/login", "post", loginData);
+    if (userId && role && token) {
+      login(userId, role, token);
       history.replace("/student");
     }
   };
