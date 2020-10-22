@@ -14,7 +14,7 @@ import { StylesProvider } from "@material-ui/core/styles";
 import Teacher from "./pages/Teacher";
 import Admin from "./pages/Admin";
 import { useStateValue } from "./store";
-import cookie from "js-cookie";
+
 import { useAuth } from "./hooks/auth-hooks";
 function App() {
   const [{ token, role }] = useStateValue();
@@ -29,23 +29,10 @@ function App() {
         <GlobalStyle />
         <Router>
           <Switch>
-            {/* {token && ( */}
-            <Route path="/student">
-              <StudentPage />
-            </Route>
-            {/* )} */}
-
-            <Route path="/teacher">
-              <Teacher />
-            </Route>
-            <Route path="/admin">
-              <Admin />
-            </Route>
-            {/* {!token && ( */}
-            <Route exact path="/">
-              <Login />
-            </Route>
-            {/* )} */}
+            <Route path="/student" component={StudentPage} />
+            <Route path="/teacher" component={Teacher} />
+            <Route path="/admin" component={Admin} />
+            <Route exact path="/" component={Login} />
             <Redirect to="/" />
           </Switch>
         </Router>

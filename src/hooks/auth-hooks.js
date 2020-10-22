@@ -1,21 +1,8 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { actionTypes, useStateValue } from "../store";
 import cookie from "js-cookie";
 export const useAuth = () => {
   const [, dispatch] = useStateValue();
-
-  const setCookieLogin = useCallback(() => {
-    const jwt = cookie.get("user");
-    if (jwt) {
-      const { role, token, userId } = JSON.parse(
-        jwt.split(":").splice(1, 4).join(":")
-      );
-      if (role && token && userId) {
-        login(role, userId, token);
-      }
-    }
-  }, []);
-
   const login = useCallback(
     (role, userId, token) => {
       dispatch({
@@ -47,5 +34,16 @@ export const useAuth = () => {
       token: null,
     });
   }, [dispatch]);
+  const setCookieLogin = useCallback(() => {
+    const jwt = cookie.get("user");
+    if (jwt) {
+      const { role, token, userId } = JSON.parse(
+        jwt.split(":").splice(1, 4).join(":")
+      );
+      if (role && token && userId) {
+        login(role, userId, token);
+      }
+    }
+  }, [login]);
   return { login, logout, setCookieLogin };
 };

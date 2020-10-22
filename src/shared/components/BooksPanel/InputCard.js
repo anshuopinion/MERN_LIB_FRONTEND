@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import { TextField } from "formik-material-ui";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";

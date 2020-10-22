@@ -6,7 +6,7 @@ import PersonalBooks from "../components/student/PersonalBooks";
 import RecentUpdates from "../components/student/RecentUpdates";
 import SharedBooks from "../components/student/SharedBooks";
 import { MainContainer, Background } from "../elements";
-import { actionTypes, useStateValue } from "../store";
+import { useStateValue } from "../store";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
 
@@ -26,23 +26,32 @@ const StyledStudent = styled.div`
 `;
 
 const Student = () => {
-  const [{ userId }] = useStateValue();
+  const [{ userId, token }] = useStateValue();
   const [loading, setLoading] = useState(true);
   const { sendRequest, error, clearError } = useHttpClient();
   const { logout } = useAuth();
   const [loadedUser, setLoadedUser] = useState();
   const history = useHistory();
+
   useEffect(() => {
     const fetchUser = async () => {
-      await sendRequest(`/students/${userId}`, "get")
+      await sendRequest(`/students/${userId}`, "get", null, {
+        Authorization: `${token}`,
+      })
         .then((res) => {
           setLoadedUser(res.data);
           setLoading(false);
         })
         .catch((err) => {});
     };
-    fetchUser();
-  }, [userId, sendRequest, history]);
+    if (userId) {
+      fetchUser();
+    }
+    if (!token) {
+      history.replace("/");
+      
+    }
+  }, [userId, sendRequest, history, token]);
   const signout = () => {
     logout();
     history.replace("/");

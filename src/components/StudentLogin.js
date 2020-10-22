@@ -8,7 +8,7 @@ import { TextField } from "formik-material-ui";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
 import ErrorModal from "../shared/components/ErrorModal";
-import { actionTypes, useStateValue } from "../store";
+
 import Spinner from "./UI/Spinner";
 import { useAuth } from "../hooks/auth-hooks";
 
