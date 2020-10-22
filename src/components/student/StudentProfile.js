@@ -1,13 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons/faUser";
-import { faEnvelopeOpen } from "@fortawesome/free-regular-svg-icons/faEnvelopeOpen";
 import { faMobile } from "@fortawesome/free-solid-svg-icons/faMobile";
 import { faUniversity } from "@fortawesome/free-solid-svg-icons/faUniversity";
 import { faBookReader } from "@fortawesome/free-solid-svg-icons/faBookReader";
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons/faCalendarAlt";
 import { faCalendarDay } from "@fortawesome/free-solid-svg-icons/faCalendarDay";
-import { Button, Card } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import Button from "@material-ui/core/Button";
 import styled from "styled-components";
 
 const Icon = styled.i`
@@ -88,7 +88,6 @@ const StudentProfile = ({ signout, user }) => {
     { icon: faCalendarDay, key: "year", value: user.data.year },
   ];
 
-  console.log(user);
   return (
     <>
       {user && (

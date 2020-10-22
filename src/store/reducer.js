@@ -4,16 +4,6 @@ export const initialState = {
   userId: null,
   token: null,
   role: null,
-  logout: () => {
-    initialState.userId = null;
-    initialState.token = null;
-    initialState.role = null;
-  },
-  login: (userId, token, role) => {
-    initialState.userId = userId;
-    initialState.token = role;
-    initialState.role = token;
-  },
 };
 
 export const actionTypes = {
@@ -39,10 +29,7 @@ const reducer = (state, action) => {
       return { ...state, token: action.token };
     case actionTypes.SET_ROLE:
       return { ...state, role: action.role };
-    case actionTypes.SET_LOGOUT:
-      return { ...state, logout: action.logout };
-    case actionTypes.SET_LOGIN:
-      return { ...state, login: action.login };
+
     default:
       return state;
   }

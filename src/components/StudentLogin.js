@@ -10,6 +10,7 @@ import { useHttpClient } from "../hooks/http-hooks";
 import ErrorModal from "../shared/components/ErrorModal";
 import { actionTypes, useStateValue } from "../store";
 import Spinner from "./UI/Spinner";
+import { useAuth } from "../hooks/auth-hooks";
 
 const Container = styled.section`
   height: 100vh;
@@ -69,7 +70,8 @@ const SubmitBtn = styled(Button)`
 
 const StudentLogin = () => {
   const { sendRequest, error, clearError, loading } = useHttpClient();
-  const [{ login }] = useStateValue();
+  const { login } = useAuth();
+
   const initialValues = { email: "", password: "" };
 
   const validationSchema = yup.object().shape({
@@ -83,8 +85,9 @@ const StudentLogin = () => {
     const {
       data: { userId, role, token },
     } = await sendRequest("/students/login", "post", loginData);
+
     if (userId && role && token) {
-      login(userId, role, token);
+      login(role, userId, token);
       history.replace("/student");
     }
   };

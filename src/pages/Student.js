@@ -12,6 +12,7 @@ import { useHttpClient } from "../hooks/http-hooks";
 
 import ErrorModal from "../shared/components/ErrorModal";
 import Spinner from "../components/UI/Spinner";
+import { useAuth } from "../hooks/auth-hooks";
 
 const StyledStudent = styled.div`
   display: grid;
@@ -25,12 +26,12 @@ const StyledStudent = styled.div`
 `;
 
 const Student = () => {
-  const [{ logout, userId }] = useStateValue();
+  const [{ userId }] = useStateValue();
   const [loading, setLoading] = useState(true);
   const { sendRequest, error, clearError } = useHttpClient();
+  const { logout } = useAuth();
   const [loadedUser, setLoadedUser] = useState();
   const history = useHistory();
-
   useEffect(() => {
     const fetchUser = async () => {
       await sendRequest(`/students/${userId}`, "get")
@@ -38,11 +39,7 @@ const Student = () => {
           setLoadedUser(res.data);
           setLoading(false);
         })
-        .catch((err) => {
-          setTimeout(() => {
-            history.replace("/");
-          }, 2000);
-        });
+        .catch((err) => {});
     };
     fetchUser();
   }, [userId, sendRequest, history]);
