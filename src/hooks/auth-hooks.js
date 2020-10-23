@@ -33,9 +33,10 @@ export const useAuth = () => {
       type: actionTypes.SET_TOKEN,
       token: null,
     });
+    cookie.remove("jwt");
   }, [dispatch]);
   const setCookieLogin = useCallback(() => {
-    const jwt = cookie.get("user");
+    const jwt = cookie.get("jwt");
     if (jwt) {
       const { role, token, userId } = JSON.parse(
         jwt.split(":").splice(1, 4).join(":")

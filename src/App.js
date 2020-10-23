@@ -16,6 +16,7 @@ import Admin from "./pages/Admin";
 import { useStateValue } from "./store";
 
 import { useAuth } from "./hooks/auth-hooks";
+import Home from "./pages/Home";
 function App() {
   const [{ token, role }] = useStateValue();
   const { setCookieLogin } = useAuth();
@@ -29,10 +30,13 @@ function App() {
         <GlobalStyle />
         <Router>
           <Switch>
-            <Route path="/student" component={StudentPage} />
+            {token && role === "student" && (
+              <Route path="/student" component={StudentPage} />
+            )}
             <Route path="/teacher" component={Teacher} />
             <Route path="/admin" component={Admin} />
-            <Route exact path="/" component={Login} />
+            {!token && <Route path="/login" component={Login} />}
+            <Route exact path="/" component={Home} />
             <Redirect to="/" />
           </Switch>
         </Router>
