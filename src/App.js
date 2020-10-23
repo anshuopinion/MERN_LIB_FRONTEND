@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import GlobalStyle from "./theme/globalStyles";
 import { ThemeProvider } from "styled-components";
-import Login from "./pages/Login";
+import Login from "./components/Login";
 import StudentPage from "./pages/Student";
 import theme from "./theme/theme";
 import { StylesProvider } from "@material-ui/core/styles";
@@ -33,9 +33,23 @@ function App() {
             {token && role === "student" && (
               <Route path="/student" component={StudentPage} />
             )}
-            <Route path="/teacher" component={Teacher} />
-            <Route path="/admin" component={Admin} />
-            {!token && <Route path="/login" component={Login} />}
+            {token && role === "teacher" && (
+              <Route path="/teacher" component={Teacher} />
+            )}
+            {token && role === "admin" && (
+              <Route path="/admin" component={Admin} />
+            )}
+
+            <Route path="/login">
+              <Login type="student" />
+            </Route>
+            <Route path="/tlogin">
+              <Login type="teacher" />
+            </Route>
+            <Route path="/alogin">
+              <Login type="admin" />
+            </Route>
+
             <Route exact path="/" component={Home} />
             <Redirect to="/" />
           </Switch>

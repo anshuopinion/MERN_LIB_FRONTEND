@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
 import { MainContainer } from "../elements";
@@ -11,6 +11,7 @@ import ErrorModal from "../shared/components/ErrorModal";
 
 import Spinner from "./UI/Spinner";
 import { useAuth } from "../hooks/auth-hooks";
+import { useStateValue } from "../store";
 
 const Container = styled.section`
   height: 100vh;
@@ -68,31 +69,33 @@ const SubmitBtn = styled(Button)`
   }
 `;
 
-const StudentLogin = () => {
+const Login = ({ type }) => {
   const { sendRequest, error, clearError, loading } = useHttpClient();
   const { login } = useAuth();
+  const [{ token, role }] = useStateValue();
+  const history = useHistory();
 
   const initialValues = { email: "", password: "" };
-
   const validationSchema = yup.object().shape({
     email: yup.string().email().required(),
     password: yup.string().min(6, "password is too short").required(),
   });
-
   const onSubmit = async (values) => {
     const loginData = { email: values.email, password: values.password };
-
     const {
       data: { userId, role, token },
-    } = await sendRequest("/students/login", "post", loginData);
-
+    } = await sendRequest(`/${type}s/login`, "post", loginData);
     if (userId && role && token) {
       login(role, userId, token);
-      history.replace("/student");
+      history.replace(`/${type}`);
     }
   };
+  useEffect(() => {
+    if (token && role === type) {
+      history.replace(`/${type}`);
+    }
+  }, [token, role, history, type]);
 
-  const history = useHistory();
   return (
     <MainContainer>
       <ErrorModal error={error} onClose={clearError} />
@@ -136,4 +139,4 @@ const StudentLogin = () => {
   );
 };
 
-export default StudentLogin;
+export default Login;
