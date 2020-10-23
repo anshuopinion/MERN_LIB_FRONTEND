@@ -40,13 +40,13 @@ function App() {
               <Route path="/admin" component={Admin} />
             )}
 
-            <Route path="/login">
+            <Route path="/student-login">
               <Login type="student" />
             </Route>
-            <Route path="/tlogin">
+            <Route path="/teacher-login">
               <Login type="teacher" />
             </Route>
-            <Route path="/alogin">
+            <Route path="/admin-login">
               <Login type="admin" />
             </Route>
 

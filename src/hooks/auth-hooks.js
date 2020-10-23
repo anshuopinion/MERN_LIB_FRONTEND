@@ -1,8 +1,10 @@
 import { useCallback } from "react";
 import { actionTypes, useStateValue } from "../store";
 import cookie from "js-cookie";
+import { useHistory } from "react-router-dom";
 export const useAuth = () => {
   const [, dispatch] = useStateValue();
+  const history = useHistory();
   const login = useCallback(
     (role, userId, token) => {
       dispatch({
@@ -34,7 +36,8 @@ export const useAuth = () => {
       token: null,
     });
     cookie.remove("jwt");
-  }, [dispatch]);
+    history.replace("/");
+  }, [dispatch, history]);
   const setCookieLogin = useCallback(() => {
     const jwt = cookie.get("jwt");
     if (jwt) {

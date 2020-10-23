@@ -35,6 +35,7 @@ const Title = styled.h1`
   font-size: 2rem;
   text-align: center;
   color: #fff;
+  text-transform: capitalize;
 `;
 
 const StyledForm = styled(Form)`
@@ -105,7 +106,7 @@ const Login = ({ type }) => {
             <Spinner />
           ) : (
             <>
-              <Title>Student Login</Title>
+              <Title>{type} Login</Title>
               <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}

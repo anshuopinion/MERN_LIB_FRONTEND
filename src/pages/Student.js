@@ -48,13 +48,11 @@ const Student = () => {
       fetchUser();
     }
     if (!token) {
-      history.replace("/login");
+      history.replace("/");
     }
   }, [userId, sendRequest, history, token]);
   const signout = () => {
     logout();
-    
-    history.replace("/login");
   };
 
   return (

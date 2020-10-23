@@ -8,7 +8,6 @@ function Home() {
 
   useEffect(() => {
     const redirector = () => {
-      console.log(role);
       role === "student" && token && history.replace("/student");
       role === "teacher" && token && history.replace("/teacher");
       role === "admin" && token && history.replace("/admin");
@@ -20,7 +19,9 @@ function Home() {
   return (
     <div>
       Home
-      <Link to="/login">Login</Link>
+      <Link to="/admin-login"> Admin Login</Link>
+      <Link to="/teacher-login"> Teacher Login</Link>
+      <Link to="/student-login"> Student Login</Link>
     </div>
   );
 }

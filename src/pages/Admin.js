@@ -1,7 +1,13 @@
 import React from "react";
+import { useAuth } from "../hooks/auth-hooks";
 
 function Admin() {
-  return <div>admin</div>;
+  const { logout } = useAuth();
+  return (
+    <div>
+      admin <button onClick={logout}>logout</button>
+    </div>
+  );
 }
 
 export default Admin;
