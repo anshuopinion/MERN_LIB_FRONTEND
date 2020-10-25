@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BooksPanel from "../shared/components/BooksPanel/BooksPanel";
 
@@ -6,6 +6,12 @@ import LibraryStatus from "../components/teacher/LibraryStatus";
 import StudentControls from "../components/teacher/StudentControls";
 import TeacherProfile from "../components/teacher/TeacherProfile";
 import { MainContainer, Background } from "../elements";
+import { useStateValue } from "../store";
+import { useHistory } from "react-router-dom";
+import { useAuth } from "../hooks/auth-hooks";
+import { useHttpClient } from "../hooks/http-hooks";
+import ErrorModal from "../shared/components/ErrorModal";
+import Spinner from "../components/UI/Spinner";
 
 const StyledTeacher = styled.div`
   display: grid;
@@ -20,17 +26,52 @@ const StyledTeacher = styled.div`
 `;
 
 const Teacher = () => {
+  const [{ userId, token }] = useStateValue();
+  const [loading, setLoading] = useState(true);
+  const { sendRequest, error, clearError } = useHttpClient();
+  const { logout } = useAuth();
+  const [loadedUser, setLoadedUser] = useState();
+  const history = useHistory();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      await sendRequest(`/students/${userId}`, "get", null, {
+        Authorization: `${token}`,
+      })
+        .then((res) => {
+          setLoadedUser(res.data);
+          setLoading(false);
+        })
+        .catch((err) => {});
+    };
+    if (userId) {
+      fetchUser();
+    }
+    if (!token) {
+      history.replace("/");
+    }
+  }, [userId, sendRequest, history, token]);
+  const signout = () => {
+    logout();
+  };
   return (
-    <Background>
-      <MainContainer>
-        <StyledTeacher>
-          <TeacherProfile />
-          <BooksPanel />
-          <LibraryStatus />
-          <StudentControls />
-        </StyledTeacher>
-      </MainContainer>
-    </Background>
+    <>
+      <ErrorModal error={error} onClose={clearError} />
+      {loading ? (
+        <Spinner fullPage />
+      ) : (
+        <Background>
+          <MainContainer>
+            <StyledTeacher>
+              <TeacherProfile signout={signout} user={loadedUser} />
+              <BooksPanel />
+              <LibraryStatus />
+              <StudentControls />
+            </StyledTeacher>
+          </MainContainer>
+        </Background>
+      )}
+    </>
   );
 };
 

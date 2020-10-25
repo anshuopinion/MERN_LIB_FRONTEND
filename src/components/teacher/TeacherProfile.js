@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-regular-svg-icons/faUser";
 import { faEnvelopeOpen } from "@fortawesome/free-regular-svg-icons/faEnvelopeOpen";
 import { faMobile } from "@fortawesome/free-solid-svg-icons/faMobile";
-import { Card } from "@material-ui/core";
+import { Button, Card } from "@material-ui/core";
 import styled from "styled-components";
 
 const Icon = styled.i`
@@ -69,41 +69,49 @@ const StyledCard = styled(Card)`
   }
 `;
 
-const TeacherProfile = () => {
-  const icon = [faUser, faEnvelopeOpen, faMobile];
-  const teacherDetails = {
-    name: "Rohan Kumar",
-    userDetails: {
-      Username: "rohanbaba",
-      Email: "rohan83@gmail.com",
-      Mobile: "7865584623",
-    },
-  };
+const TeacherProfile = ({ user, signout }) => {
+  // const icon = [faUser, faEnvelopeOpen, faMobile];
+  // const teacherDetails = {
+  //   name: "Rohan Kumar",
+  //   userDetails: {
+  //     Username: "rohanbaba",
+  //     Email: "rohan83@gmail.com",
+  //     Mobile: "7865584623",
+  //   },
+  // };
+
+  const teacherDetails = [
+    //   { icon: faUser, key: "student id", value: user.data.student_id },
+    { icon: faEnvelopeOpen, key: "email", value: user?.email },
+    { icon: faMobile, key: "mobile no.", value: user?.data.mobile },
+  ];
 
   return (
     <>
-      <Container>
-        <User>
-          <div className="profile-pic">
-            <FontAwesomeIcon icon={faUser} />
-          </div>
-          <p className="name">{teacherDetails.name}</p>
-        </User>
+      {user && (
+        <Container>
+          <User>
+            <div className="profile-pic">
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+            <p className="name">{user?.name}</p>
+          </User>
 
-        {Object.entries(teacherDetails.userDetails).map(([key, value], i) => {
-          return (
-            <StyledCard key={key}>
+          {teacherDetails.map((detail) => (
+            <StyledCard key={detail.key}>
               <Icon>
-                <FontAwesomeIcon icon={icon[i]} />
+                <FontAwesomeIcon icon={detail.icon} />
               </Icon>
               <div className="card-details">
-                <span className="key">{key.split("_").join(" ")}</span>
-                <span classnam="value">{value}</span>
+                <span>{detail.value}</span>
               </div>
             </StyledCard>
-          );
-        })}
-      </Container>
+          ))}
+          <span>
+            <Button onClick={signout}>SignOut</Button>
+          </span>
+        </Container>
+      )}
     </>
   );
 };
