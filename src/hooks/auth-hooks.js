@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { actionTypes, useStateValue } from "../store";
+import { actionTypes, useStateValue } from "../Store";
 import cookie from "js-cookie";
 import { useHistory } from "react-router-dom";
 export const useAuth = () => {

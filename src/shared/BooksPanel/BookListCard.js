@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledCard } from "../../elements";
+import { StyledCard } from "../../Elements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons/faEdit";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";

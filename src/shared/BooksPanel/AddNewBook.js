@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import InputCard from "./InputCard";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons/faPlusCircle";
-import { StyledCard } from "../../elements";
+import { StyledCard } from "../../Elements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const StyledAddNewBook = styled.div`

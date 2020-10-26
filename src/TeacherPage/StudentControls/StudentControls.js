@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useHttpClient } from "../../hooks/http-hooks";
-import { useStateValue } from "../../store";
+import { useStateValue } from "../../Store";
 import Spinner from "../../shared/UI/Spinner";
 // import AddNewStudent from "./AddNewStudent";
 import StudentListCard from "../Students/StudentListCard";

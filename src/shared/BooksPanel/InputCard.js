@@ -11,7 +11,7 @@ import {
   FormLabel,
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { StyledCard } from "../../elements";
+import { StyledCard } from "../../Elements";
 import * as yup from "yup";
 import { useHttpClient } from "../../hooks/http-hooks";
 import ErrorModal from "../UI/ErrorModal";

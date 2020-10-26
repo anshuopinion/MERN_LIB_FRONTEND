@@ -5,8 +5,8 @@ import BooksPanel from "../shared/BooksPanel/BooksPanel";
 import PersonalBooks from "./PersonalBooks";
 import RecentUpdates from "./RecentUpdates";
 import SharedBooks from "./SharedBooks";
-import { MainContainer, Background } from "../elements";
-import { useStateValue } from "../store";
+import { MainContainer, Background } from "../Elements";
+import { useStateValue } from "../Store";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
 

@@ -14,7 +14,7 @@ import theme from "./theme/theme";
 import { StylesProvider } from "@material-ui/core/styles";
 import Teacher from "./TeacherPage/Teacher";
 import Admin from "./AdminPage/Admin";
-import { useStateValue } from "./store";
+import { useStateValue } from "./Store";
 import { useAuth } from "./hooks/auth-hooks";
 import Home from "./HomePage/Home";
 function App() {

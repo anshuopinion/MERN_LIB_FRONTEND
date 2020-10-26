@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Formik, Form, Field } from "formik";
 import styled from "styled-components";
-import { MainContainer } from "../elements";
+import { MainContainer } from "../Elements";
 import * as yup from "yup";
 import { Card, Button } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
@@ -11,7 +11,7 @@ import ErrorModal from "./UI/ErrorModal";
 
 import Spinner from "./UI/Spinner";
 import { useAuth } from "../hooks/auth-hooks";
-import { useStateValue } from "../store";
+import { useStateValue } from "../Store";
 
 const Container = styled.section`
   height: 100vh;
