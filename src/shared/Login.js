@@ -7,7 +7,7 @@ import { Card, Button } from "@material-ui/core";
 import { TextField } from "formik-material-ui";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
-import ErrorModal from "../shared/components/ErrorModal";
+import ErrorModal from "./UI/ErrorModal";
 
 import Spinner from "./UI/Spinner";
 import { useAuth } from "../hooks/auth-hooks";

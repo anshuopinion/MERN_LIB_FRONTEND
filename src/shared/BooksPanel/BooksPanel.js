@@ -6,9 +6,9 @@ import ListCard from "./BookListCard";
 
 import InputCard from "./InputCard";
 
-import { useHttpClient } from "../../../hooks/http-hooks";
-import ErrorModal from "../ErrorModal";
-import Spinner from "../../../components/UI/Spinner";
+import { useHttpClient } from "../../hooks/http-hooks";
+import ErrorModal from "../UI/ErrorModal";
+import Spinner from "../UI/Spinner";
 const Container = styled.section`
   border-radius: 1rem;
   margin-top: 1rem;

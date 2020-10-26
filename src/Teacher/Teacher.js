@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import BooksPanel from "../shared/components/BooksPanel/BooksPanel";
+import BooksPanel from "../shared/BooksPanel/BooksPanel";
 
-import LibraryStatus from "../components/teacher/LibraryStatus";
-import StudentControls from "../components/teacher/StudentControls/StudentControls";
-import TeacherProfile from "../components/teacher/TeacherProfile";
+import LibraryStatus from "./LibraryStatus";
+import StudentControls from "./StudentControls/StudentControls";
+import TeacherProfile from "./TeacherProfile";
 import { MainContainer, Background } from "../elements";
 import { useStateValue } from "../store";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/auth-hooks";
 import { useHttpClient } from "../hooks/http-hooks";
-import ErrorModal from "../shared/components/ErrorModal";
-import Spinner from "../components/UI/Spinner";
+import ErrorModal from "../shared/UI/ErrorModal";
+import Spinner from "../shared/UI/Spinner";
 
 const StyledTeacher = styled.div`
   display: grid;
@@ -44,7 +44,7 @@ const Teacher = () => {
         })
         .catch((err) => {});
     };
-  
+
     if (userId) {
       fetchUser();
     }
@@ -52,8 +52,6 @@ const Teacher = () => {
       history.replace("/");
     }
   }, [userId, sendRequest, history, token]);
-
-
 
   const signout = () => {
     logout();

@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledCard } from "../../../elements";
+import { StyledCard } from "../../elements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons/faEdit";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { Button, CircularProgress } from "@material-ui/core";
-import { useHttpClient } from "../../../hooks/http-hooks";
-import ErrorModal from "../ErrorModal";
+import { useHttpClient } from "../../hooks/http-hooks";
+import ErrorModal from "../UI/ErrorModal";
 
 const StyledListCard = styled(StyledCard)`
   display: ${(props) => (props.open ? "" : "none")};

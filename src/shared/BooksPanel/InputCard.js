@@ -11,10 +11,10 @@ import {
   FormLabel,
 } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { StyledCard } from "../../../elements";
+import { StyledCard } from "../../elements";
 import * as yup from "yup";
-import { useHttpClient } from "../../../hooks/http-hooks";
-import ErrorModal from "../ErrorModal";
+import { useHttpClient } from "../../hooks/http-hooks";
+import ErrorModal from "../UI/ErrorModal";
 const StyledInputCard = styled(StyledCard)`
   .crossBtn {
     position: relative;

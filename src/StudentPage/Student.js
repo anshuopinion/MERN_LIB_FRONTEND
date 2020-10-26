@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
-import StudentProfile from "../components/student/StudentProfile";
+import StudentProfile from "./StudentProfile";
 import styled from "styled-components";
-import BooksPanel from "../shared/components/BooksPanel/BooksPanel";
-import PersonalBooks from "../components/student/PersonalBooks";
-import RecentUpdates from "../components/student/RecentUpdates";
-import SharedBooks from "../components/student/SharedBooks";
+import BooksPanel from "../shared/BooksPanel/BooksPanel";
+import PersonalBooks from "./PersonalBooks";
+import RecentUpdates from "./RecentUpdates";
+import SharedBooks from "./SharedBooks";
 import { MainContainer, Background } from "../elements";
 import { useStateValue } from "../store";
 import { useHistory } from "react-router-dom";
 import { useHttpClient } from "../hooks/http-hooks";
 
-import ErrorModal from "../shared/components/ErrorModal";
-import Spinner from "../components/UI/Spinner";
+import ErrorModal from "../shared/UI/ErrorModal";
+import Spinner from "../shared/UI/Spinner";
 import { useAuth } from "../hooks/auth-hooks";
 
 const StyledStudent = styled.div`

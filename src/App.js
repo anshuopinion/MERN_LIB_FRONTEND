@@ -8,16 +8,15 @@ import {
 } from "react-router-dom";
 import GlobalStyle from "./theme/globalStyles";
 import { ThemeProvider } from "styled-components";
-import Login from "./components/Login";
-import StudentPage from "./pages/Student";
+import Login from "./shared/Login";
+import StudentPage from "./StudentPage/Student";
 import theme from "./theme/theme";
 import { StylesProvider } from "@material-ui/core/styles";
-import Teacher from "./pages/Teacher";
-import Admin from "./pages/Admin";
+import Teacher from "./Teacher/Teacher";
+import Admin from "./AdminPage/Admin";
 import { useStateValue } from "./store";
-
 import { useAuth } from "./hooks/auth-hooks";
-import Home from "./pages/Home";
+import Home from "./HomePage/Home";
 function App() {
   const [{ token, role }] = useStateValue();
   const { setCookieLogin } = useAuth();
