@@ -1,3 +1,4 @@
+import { hot } from "react-hot-loader/root";
 import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -59,4 +60,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(App);
