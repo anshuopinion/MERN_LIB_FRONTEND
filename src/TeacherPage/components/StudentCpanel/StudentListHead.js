@@ -3,19 +3,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import styled from "styled-components";
-import { StyledCard } from "../../../elements";
+import { StyledCard } from "../../../Elements";
 
 const Card = styled(StyledCard)`
-  
+  text-align: center;
   .student-id {
-    flex: 1;
+    flex: 2;
   }
 
   .name {
-    flex: 7;
+    flex: 5;
+    
   }
   .semester {
-    flex: 1;
+    flex: 2;
   }
   .year {
     flex: 1;
@@ -29,7 +30,7 @@ const Card = styled(StyledCard)`
   }
 `;
 
-const SearchBooks = styled.div`
+const SearchStudents = styled.div`
   flex: 5;
   .input {
     border-radius: 1rem;
@@ -53,7 +54,7 @@ function StudentListHead() {
       <span className="name">Student Name</span>
       <span className="semester">Semester</span>
       <span className="year">Year</span>
-      <SearchBooks>
+      <SearchStudents>
         <Formik
           initialValues={{ bookSearch: "" }}
           onSubmit={(value) => {
@@ -66,7 +67,7 @@ function StudentListHead() {
               type="text"
               name="bookSearch"
               id="bookSearch"
-              placeholder="Search Book..."
+              placeholder="Search Student..."
             />
             <button className="submit-btn" type="sumit">
               <i>
@@ -75,7 +76,7 @@ function StudentListHead() {
             </button>
           </Form>
         </Formik>
-      </SearchBooks>
+      </SearchStudents>
     </Card>
   );
 }

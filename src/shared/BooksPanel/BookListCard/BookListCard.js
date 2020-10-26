@@ -21,7 +21,6 @@ const StyledListCard = styled(StyledCard)`
       transition: 0.2s ease-in;
     }
   }
-
   span {
     text-align: center;
   }

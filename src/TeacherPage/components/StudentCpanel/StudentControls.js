@@ -6,6 +6,7 @@ import Spinner from "../../../shared/UI/Spinner";
 // import AddNewStudent from "./AddNewStudent";
 import StudentListCard from "./StudentCard/StudentListCard";
 import ErrorModal from "../../../shared/UI/ErrorModal";
+import StudentListHead from "./StudentListHead";
 const StyledStudentControl = styled.section`
   border-radius: 1rem;
   margin-top: 1rem;
@@ -45,7 +46,7 @@ function StudentControls() {
       ) : (
         <StyledStudentControl>
           <h3>Student Control Panel</h3>
-
+          <StudentListHead />
           <StudentListCard students={loadedStudents} />
         </StyledStudentControl>
       )}

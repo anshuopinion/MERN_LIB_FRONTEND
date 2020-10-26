@@ -6,9 +6,8 @@ import { StyledCard } from "../../../../Elements";
 
 const Card = styled(StyledCard)`
   text-align: center;
-
   .student-id {
-    flex: 1;
+    flex: 2;
   }
   .profile-img {
     flex: 2;
@@ -18,10 +17,12 @@ const Card = styled(StyledCard)`
     }
   }
   .name {
-    flex: 4;
+    margin-left: 0.4rem;
+    flex: 3;
+    text-align: start;
   }
   .semester {
-    flex: 1;
+    flex: 2;
   }
   .year {
     flex: 1;
@@ -29,7 +30,7 @@ const Card = styled(StyledCard)`
   .icons {
     display: flex;
     width: 90px;
-    flex: 3;
+    flex: 5;
 
     justify-content: space-around;
   }
