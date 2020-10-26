@@ -12,7 +12,7 @@ import Login from "./shared/Login";
 import StudentPage from "./StudentPage/Student";
 import theme from "./theme/theme";
 import { StylesProvider } from "@material-ui/core/styles";
-import Teacher from "./Teacher/Teacher";
+import Teacher from "./TeacherPage/Teacher";
 import Admin from "./AdminPage/Admin";
 import { useStateValue } from "./store";
 import { useAuth } from "./hooks/auth-hooks";
