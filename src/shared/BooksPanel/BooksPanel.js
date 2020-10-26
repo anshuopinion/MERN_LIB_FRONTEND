@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import CardHeading from "./CardHeading/CardHeading";
+import CardHeading from "./CardHeading";
 import UpdateSection from "./AddNewBook";
-import ListCard from "./BookListCard";
+import BookListCard from "../BooksPanel/BookListCard/BookListCard";
 
-import InputCard from "./InputCard";
+import InputCard from "./InputCard/InputCard";
 
 import { useHttpClient } from "../../hooks/http-hooks";
 import ErrorModal from "../UI/ErrorModal";
@@ -100,7 +100,7 @@ const BooksPanel = ({ disable }) => {
                   />
                 )
               ) : (
-                <ListCard
+                <BookListCard
                   book={book}
                   disable={disable}
                   openHandler={openEditHandler}
@@ -111,7 +111,7 @@ const BooksPanel = ({ disable }) => {
             }
 
             return (
-              <ListCard
+              <BookListCard
                 book={book}
                 key={book._id}
                 disable={disable}

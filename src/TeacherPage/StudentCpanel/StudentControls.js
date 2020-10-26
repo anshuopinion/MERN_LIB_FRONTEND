@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useHttpClient } from "../../hooks/http-hooks";
-import { useStateValue } from "../../Store";
-import Spinner from "../../shared/UI/Spinner";
+import { useHttpClient } from "../../../hooks/http-hooks";
+import { useStateValue } from "../../../Store";
+import Spinner from "../../../shared/UI/Spinner";
 // import AddNewStudent from "./AddNewStudent";
-import StudentListCard from "../Students/StudentListCard";
-import ErrorModal from "../../shared/UI/ErrorModal";
+import StudentListCard from "../StudentCard/StudentListCard";
+import ErrorModal from "../../../shared/UI/ErrorModal";
 const StyledStudentControl = styled.section`
   border-radius: 1rem;
   margin-top: 1rem;

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import styled from "styled-components";
-import { StyledCard } from "../../../../elements";
+import { StyledCard } from "../../../elements";
 
 const Card = styled(StyledCard)`
   

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import InputCard from "./InputCard";
+import InputCard from "./InputCard/InputCard";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons/faPlusCircle";
 import { StyledCard } from "../../Elements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

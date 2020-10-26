@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import StudentProfile from "./StudentProfile";
+import StudentProfile from "./components/StudentProfile";
 import styled from "styled-components";
 import BooksPanel from "../shared/BooksPanel/BooksPanel";
-import PersonalBooks from "./PersonalBooks";
-import RecentUpdates from "./RecentUpdates";
-import SharedBooks from "./SharedBooks";
+import PersonalBooks from "./components/PersonalBooks";
+import RecentUpdates from "./components/RecentUpdates";
+import SharedBooks from "./components/SharedBooks";
 import { MainContainer, Background } from "../Elements";
 import { useStateValue } from "../Store";
 import { useHistory } from "react-router-dom";

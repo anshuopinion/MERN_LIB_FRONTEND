@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import BooksPanel from "../shared/BooksPanel/BooksPanel";
 
-import LibraryStatus from "./LibraryStatus";
-import StudentControls from "./StudentControls/StudentControls";
-import TeacherProfile from "./TeacherProfile";
+import LibraryStatus from "./components/LibraryStatus";
+import StudentControls from "./components/StudentCpanel/StudentControls";
+import TeacherProfile from "./components/TeacherProfile";
 import { MainContainer, Background } from "../Elements";
 import { useStateValue } from "../Store";
 import { useHistory } from "react-router-dom";
