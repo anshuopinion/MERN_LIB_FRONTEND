@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import CardHeading from "./CardHeading";
+import CardHeading from "./CardHeading/CardHeading";
 import UpdateSection from "./AddNewBook";
-import ListCard from "./ListCard";
+import ListCard from "./BookListCard";
 
 import InputCard from "./InputCard";
 

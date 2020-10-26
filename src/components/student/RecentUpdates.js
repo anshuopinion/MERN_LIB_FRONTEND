@@ -18,6 +18,7 @@ const Container = styled.section`
   }
 `;
 
+
 const RecentUpdates = () => {
   return (
     <Container>

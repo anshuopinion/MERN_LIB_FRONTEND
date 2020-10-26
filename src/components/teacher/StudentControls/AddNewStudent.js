@@ -58,7 +58,7 @@ function AddNewStudent() {
           password: "",
           year: "",
         }}
-        onSubmit={async (values, { resetForm }) => {}}
+        onSubmit={async (values) => {}}
       >
         {(props) => (
           <Form className="form">

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import BooksPanel from "../shared/components/BooksPanel/BooksPanel";
 
 import LibraryStatus from "../components/teacher/LibraryStatus";
-import StudentControls from "../components/teacher/StudentControls";
+import StudentControls from "../components/teacher/StudentControls/StudentControls";
 import TeacherProfile from "../components/teacher/TeacherProfile";
 import { MainContainer, Background } from "../elements";
 import { useStateValue } from "../store";
@@ -35,7 +35,7 @@ const Teacher = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      await sendRequest(`/students/${userId}`, "get", null, {
+      await sendRequest(`/teachers/${userId}`, "get", null, {
         Authorization: `${token}`,
       })
         .then((res) => {
@@ -44,6 +44,7 @@ const Teacher = () => {
         })
         .catch((err) => {});
     };
+  
     if (userId) {
       fetchUser();
     }
@@ -51,6 +52,9 @@ const Teacher = () => {
       history.replace("/");
     }
   }, [userId, sendRequest, history, token]);
+
+
+
   const signout = () => {
     logout();
   };
