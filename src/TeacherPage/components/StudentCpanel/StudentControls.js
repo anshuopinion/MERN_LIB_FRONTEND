@@ -25,7 +25,7 @@ function StudentControls() {
   const [open, setOpen] = useState(false);
   const { loading, sendRequest, error, clearError } = useHttpClient();
   const [loadedStudents, setLoadedStudents] = useState([]);
-
+  const [editStudent, setEditStudent] = useState();
   useEffect(() => {
     const fetchStudents = async () => {
       await sendRequest("/students", "get", null, {
@@ -41,14 +41,15 @@ function StudentControls() {
     fetchStudents();
   }, [token, sendRequest]);
 
-  const updateStudent = () => {
+  const updateStudent = (student) => {
     setUpdate(true);
     setOpen(true);
+    setEditStudent(student);
   };
-  const closeUpdateStudent = ()=>{
+  const closeUpdateStudent = () => {
     setUpdate(false);
     setOpen(false);
-  }
+  };
   const createStudent = () => {
     setOpen(true);
   };
@@ -64,7 +65,12 @@ function StudentControls() {
         <StyledStudentControl>
           <h3>Student Control Panel</h3>
           {open ? (
-            <StudentInput closeCreate={closeCreateStudent} update={update} closeUpdate={closeUpdateStudent} />
+            <StudentInput
+              closeCreate={closeCreateStudent}
+              update={update}
+              closeUpdate={closeUpdateStudent}
+              student={editStudent}
+            />
           ) : (
             <>
               <StudentListHead />
@@ -72,7 +78,6 @@ function StudentControls() {
                 students={loadedStudents}
                 updateStudent={updateStudent}
                 createStudent={createStudent}
-
               />
             </>
           )}

@@ -40,40 +40,46 @@ const Card = styled(StyledCard)`
   }
 `;
 
-function StudentList({ students, createStudent,updateStudent }) {
+function StudentList({ students, createStudent, updateStudent }) {
   return (
     <>
-      <Card >
+      <Card>
         <i onClick={createStudent}>
           <FontAwesomeIcon icon={faPlusCircle} size="3x" />
         </i>
       </Card>
-      {students.map((student) => (
-        <Card key={student._id}>
-          <span className="student-id">{student.data.library_card}</span>
-          <span className="profile-img">
-            <img
-              src="https://cloudblogs.microsoft.com/industry-blog/wp-content/uploads/industry/sites/22/2019/08/tomhickling_avatar_1565623346.png"
-              alt="man"
-            />
-          </span>
-          <span className="name">{student.name}</span>
-          <span className="semester">{student.data.semester}</span>
-          <span className="year">{student.data.year}</span>
-          <div className="icons">
-            <span>
-              <FontAwesomeIcon icon={faEdit} size="2x" onClick={updateStudent} />
-            </span>
-            <span>
-              <FontAwesomeIcon
-                icon={faTrash}
-                size="2x"
-                // onClick={deleteBook}
+      {students.map((student) => {
+        const onEdit = () => {
+          updateStudent(student);
+        };
+
+        return (
+          <Card key={student._id}>
+            <span className="student-id">{student.data.library_card}</span>
+            <span className="profile-img">
+              <img
+                src="https://cloudblogs.microsoft.com/industry-blog/wp-content/uploads/industry/sites/22/2019/08/tomhickling_avatar_1565623346.png"
+                alt="man"
               />
             </span>
-          </div>
-        </Card>
-      ))}
+            <span className="name">{student.name}</span>
+            <span className="semester">{student.data.semester}</span>
+            <span className="year">{student.data.year}</span>
+            <div className="icons">
+              <span>
+                <FontAwesomeIcon icon={faEdit} size="2x" onClick={onEdit} />
+              </span>
+              <span>
+                <FontAwesomeIcon
+                  icon={faTrash}
+                  size="2x"
+                  // onClick={deleteBook}
+                />
+              </span>
+            </div>
+          </Card>
+        );
+      })}
     </>
   );
 }
