@@ -10,10 +10,9 @@ const Card = styled(StyledCard)`
   position: sticky;
   top: 0;
   z-index: 100;
-  .student-id {
+  .lib_card {
     flex: 2;
   }
-
   .name {
     flex: 5;
   }
@@ -52,7 +51,7 @@ const SearchStudents = styled.div`
 function StudentListHead() {
   return (
     <Card>
-      <span className="student-id">Student Id</span>
+      <span className="lib_card">Library Card</span>
       <span className="name">Student Name</span>
       <span className="semester">Semester</span>
       <span className="year">Year</span>
@@ -68,7 +67,7 @@ function StudentListHead() {
               className="input"
               type="text"
               name="bookSearch"
-              id="bookSearch"
+              lib_card="bookSearch"
               placeholder="Search Student..."
             />
             <button className="submit-btn" type="sumit">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Field as F, Form, Formik } from "formik";
 import { FormControl as FC, FormLabel as FL } from "@material-ui/core";
 import styled from "styled-components";
-import { TextField } from "formik-material-ui";
+// import { TextField } from "formik-material-ui";
 import { SubmitButton } from "../../../Elements/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -124,8 +124,20 @@ function StudentInput({ closeCreate, closeUpdate, update, student }) {
   }
   const onSubmit = async (values) => {
     if (update) {
+      const studentData = {
+        name: values.name,
+        student_id: values.student_id,
+        mobile: values.mobile,
+        library_card: values.library_card,
+        semester: values.semester,
+        year: values.year,
+        university_id: values.university_id,
+      };
+      console.log(student);
+      await sendRequest(`/students/${student._id}`, "patch", studentData, {
+        Authorization: `${token}`,
+      }).then(() => closeUpdate());
     } else {
-      console.log(values);
       const studentData = {
         name: values.name,
         student_id: values.student_id,
