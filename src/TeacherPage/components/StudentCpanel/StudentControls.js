@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useHttpClient } from "../../../hooks/http-hooks";
 import { useStateValue } from "../../../Store";
 import Spinner from "../../../shared/UI/Spinner";
-// import AddNewStudent from "./AddNewStudent";
+import AddNewStudent from "./AddNewStudent";
 import StudentListCard from "./StudentCard/StudentListCard";
 import ErrorModal from "../../../shared/UI/ErrorModal";
 import StudentListHead from "./StudentListHead";
@@ -21,8 +21,10 @@ const StyledStudentControl = styled.section`
 function StudentControls() {
   // const [loading, setLoading] = useState(true);
   const [{ userId, token }] = useStateValue();
+  const [open, setOpen] = useState(false);
   const { loading, sendRequest, error, clearError } = useHttpClient();
   const [loadedStudents, setLoadedStudents] = useState([]);
+
   useEffect(() => {
     const fetchStudents = async () => {
       await sendRequest("/students", "get", null, {
@@ -37,7 +39,13 @@ function StudentControls() {
     };
     fetchStudents();
   }, [token, sendRequest]);
-  console.log(loadedStudents);
+
+  const openStudentInputPanel = () => {
+    setOpen(true);
+  };
+  const closeStudentInputPanel = () => {
+    setOpen(false);
+  };
   return (
     <>
       <ErrorModal error={error} onClose={clearError} />
@@ -46,8 +54,17 @@ function StudentControls() {
       ) : (
         <StyledStudentControl>
           <h3>Student Control Panel</h3>
-          <StudentListHead />
-          <StudentListCard students={loadedStudents} />
+          {open ? (
+            <AddNewStudent close={closeStudentInputPanel} />
+          ) : (
+            <>
+              <StudentListHead />
+              <StudentListCard
+                students={loadedStudents}
+                open={openStudentInputPanel}
+              />
+            </>
+          )}
         </StyledStudentControl>
       )}
     </>

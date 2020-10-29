@@ -1,4 +1,8 @@
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faPlusCircle,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
@@ -36,40 +40,39 @@ const Card = styled(StyledCard)`
   }
 `;
 
-function StudentList({ students }) {
+function StudentList({ students, open }) {
   return (
     <>
+      <Card>
+        <i onClick={open}>
+          <FontAwesomeIcon icon={faPlusCircle} size="3x" />
+        </i>
+      </Card>
       {students.map((student) => (
-        <>
-          <Card>
-            <span className="student-id">{student.data.library_card}</span>
-            <span className="profile-img">
-              <img
-                src="https://cloudblogs.microsoft.com/industry-blog/wp-content/uploads/industry/sites/22/2019/08/tomhickling_avatar_1565623346.png"
-                alt="man"
+        <Card key={student._id}>
+          <span className="student-id">{student.data.library_card}</span>
+          <span className="profile-img">
+            <img
+              src="https://cloudblogs.microsoft.com/industry-blog/wp-content/uploads/industry/sites/22/2019/08/tomhickling_avatar_1565623346.png"
+              alt="man"
+            />
+          </span>
+          <span className="name">{student.name}</span>
+          <span className="semester">{student.data.semester}</span>
+          <span className="year">{student.data.year}</span>
+          <div className="icons">
+            <span>
+              <FontAwesomeIcon icon={faEdit} size="2x" onClick={open} />
+            </span>
+            <span>
+              <FontAwesomeIcon
+                icon={faTrash}
+                size="2x"
+                // onClick={deleteBook}
               />
             </span>
-            <span className="name">{student.name}</span>
-            <span className="semester">{student.data.semester}</span>
-            <span className="year">{student.data.year}</span>
-            <div className="icons">
-              <span>
-                <FontAwesomeIcon
-                  icon={faEdit}
-                  size="2x"
-                  // onClick={() => openHandler(book._id)}
-                />
-              </span>
-              <span>
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  size="2x"
-                  // onClick={deleteBook}
-                />
-              </span>
-            </div>
-          </Card>
-        </>
+          </div>
+        </Card>
       ))}
     </>
   );

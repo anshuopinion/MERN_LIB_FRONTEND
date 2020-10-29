@@ -1,209 +1,217 @@
 import React from "react";
-import { Field, Form, Formik } from "formik";
-import { Button, FormControl, FormLabel } from "@material-ui/core";
+import { Field as F, Form, Formik } from "formik";
+import { FormControl as FC, FormLabel as FL } from "@material-ui/core";
 import styled from "styled-components";
 import { TextField } from "formik-material-ui";
+import { SubmitButton } from "../../../Elements/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
-const StyledAddNewStudent = styled.div`
-  .form {
-    height: 400px;
+const StyledAddNewStudent = styled.div``;
+const StyledForm = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  .form-container {
     display: flex;
-    justify-content: space-around;
-    flex-direction: column;
-    .MuiFormControl-root {
-      margin-bottom: 0.5rem;
-      color: ${(props) => props.theme.color.formInput};
-      .MuiFormInput-root {
-        color: ${(props) => props.theme.color.formInput};
-      }
-      .MuiFormLabel-root {
-        margin-left: 0.5rem;
-        margin-bottom: 0.3rem;
-        color: ${(props) => props.theme.color.formInput};
-      }
+    align-items: center;
+  }
+  button {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+    margin-right: 1rem;
+  }
+  .crossBtn {
+    align-self: flex-end;
+    font-size: 3rem;
+  }
+`;
+const FormControl = styled(FC)`
+  //hide arrow from number input
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-      & label.Mui-focused {
-        color: ${(props) => props.theme.color.formInput};
-      }
-      & .MuiOutlinedInput-root {
-        color: ${(props) => props.theme.color.formInput};
-        /* background-color: ${(props) => props.theme.color.formInput}; */
+  /* Firefox */
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
+`;
+const FormLabel = styled(FL)`
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+`;
+const Field = styled(F)`
+  width: 240px;
 
-        &.Mui-focused fieldset {
-          border-color: ${(props) => props.theme.color.formInput};
-        }
-      }
-    }
-    .form-parts {
-      display: flex;
-      justify-content: space-between;
-      align-items: bottom;
-    }
+  padding: 10px 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+`;
+const LeftSide = styled.div`
+  width: 700px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+const RightSide = styled.div`
+  width: 700px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* border: 1px solid #000; */
+`;
+const ImagePanel = styled.div`
+  width: 700px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  /* border: 1px solid #000; */
+  .image {
+    background-color: ${(props) => props.theme.color.main};
+    height: 200px;
+    width: 150px;
+    text-align: center;
+  }
+  .upload-input {
+    border: 1px solid #000;
+    padding: 0.25rem;
   }
 `;
 
-function AddNewStudent() {
+function AddNewStudent({ close }) {
   return (
     <StyledAddNewStudent>
       <Formik
         initialValues={{
-          fullname: "",
-          username: "",
-          mobile: 0,
-          libcardno: 0,
-          studentImage: undefined,
+          name: "",
+          student_id: "",
+          mobile: "",
+          library_card: "",
+          // student_image: undefiend,
           email: "",
-          semester: 0,
-          universityID: 0,
           password: "",
           year: "",
+          university_id: "",
         }}
-        onSubmit={async (values) => {}}
+        onSubmit={(values) => {
+          console.log(values);
+        }}
       >
         {(props) => (
-          <Form className="form">
-            <div className="form-parts">
-              <FormControl>
-                <FormLabel>Full Name</FormLabel>
-                <Field
-                  size="small"
-                  type="text"
-                  name="fullname"
-                  id="fullname"
-                  placeholder="Enter Name..."
-                  component={TextField}
-                  variant="outlined"
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Username</FormLabel>
-                <Field
-                  size="small"
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="Enter username..."
-                  component={TextField}
-                  variant="outlined"
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Mobile No</FormLabel>
-                <Field
-                  size="small"
-                  variant="outlined"
-                  type="number"
-                  name="mobile"
-                  id="mobile"
-                  placeholder="Enter mobile Number..."
-                  component={TextField}
-                />
-              </FormControl>
-            </div>
-
-            <div className="form-parts">
-              <FormControl className="upload-img">
-                <FormLabel>Upload Image</FormLabel>
-                <input
-                  type="file"
-                  name="studentImage"
-                  id="studentImage"
-                  onChange={(event) => {
-                    props.setFieldValue("studentImage", event.target.files[0]);
-                  }}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Password</FormLabel>
-                <Field
-                  size="small"
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder="Enter password..."
-                  component={TextField}
-                  variant="outlined"
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Email</FormLabel>
-                <Field
-                  size="small"
-                  type="email"
-                  name="email"
-                  id="email"
-                  placeholder="Enter Email..."
-                  component={TextField}
-                  variant="outlined"
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Semester</FormLabel>
-
-                <Field
-                  as="select"
-                  name="semester"
-                  id="semester"
-                  label="semester"
-                >
-                  {Array(7)
-                    .fill("")
-                    .map((_, i) => {
-                      return (
-                        <option value={i + 1 + ""} key={i}>
-                          Semester {i + 1}
-                        </option>
+          <StyledForm className="form">
+            <FontAwesomeIcon
+              className="crossBtn"
+              icon={faTimes}
+              onClick={close}
+              size="2x"
+            />
+            <div className="form-container">
+              <LeftSide>
+                <FormControl>
+                  <FormLabel>Name:-</FormLabel>
+                  <Field
+                    type="text"
+                    name="name"
+                    id="name"
+                    placeholder="Enter Name....."
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Student ID:-</FormLabel>
+                  <Field
+                    type="number"
+                    name="student_id"
+                    id="student_id"
+                    placeholder="Enter Student ID..."
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Mobile No:-</FormLabel>
+                  <Field
+                    type="number"
+                    name="mobile"
+                    id="mobile"
+                    placeholder="Enter Mobile No..."
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Library Card No:-</FormLabel>
+                  <Field
+                    type="number"
+                    name="library_card"
+                    id="library_card"
+                    placeholder="Library Card No....."
+                  />
+                </FormControl>
+              </LeftSide>
+              <ImagePanel>
+                <div className="image">Image Preview</div>
+                {/* <FormControl>
+                  <FormLabel>Upload Image</FormLabel>
+                  <input
+                    className="upload-input"
+                    type="file"
+                    name="student_image"
+                    id="student_image"
+                    onChange={(event) => {
+                      props.setFieldValue(
+                        "student_image",
+                        event.target.files[0]
                       );
-                    })}
-                </Field>
-              </FormControl>
+                    }}
+                  />
+                </FormControl> */}
+              </ImagePanel>
+              <RightSide>
+                <FormControl>
+                  <FormLabel>Email:-</FormLabel>
+                  <Field
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder="Enter Email"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Password:-</FormLabel>
+                  <Field
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Enter Password"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>Year:-</FormLabel>
+                  <Field
+                    type="number"
+                    name="year"
+                    id="year"
+                    placeholder="Enter Year"
+                  />
+                </FormControl>
+                <FormControl>
+                  <FormLabel>University ID:-</FormLabel>
+                  <Field
+                    type="number"
+                    name="university_id"
+                    id="university_id"
+                    placeholder="Enter University ID"
+                  />
+                </FormControl>
+              </RightSide>
             </div>
-            <div className="form-parts">
-              <FormControl>
-                <FormLabel>University ID</FormLabel>
-                <Field
-                  size="small"
-                  type="number"
-                  variant="outlined"
-                  name="universityID"
-                  id="universityID"
-                  placeholder="Enter University ID..."
-                  component={TextField}
-                />
-              </FormControl>
-              <FormControl>
-                <FormLabel>Library Card No.</FormLabel>
-                <Field
-                  size="small"
-                  type="number"
-                  variant="outlined"
-                  name="libcardno"
-                  id="libcardno"
-                  placeholder="Enter Library Card no..."
-                  component={TextField}
-                />
-              </FormControl>
-
-              <FormControl>
-                <FormLabel>Year</FormLabel>
-                <Field as="select" name="year" id="year" placeholder="Semester">
-                  {Array(10)
-                    .fill(2017)
-                    .map((v, i) => {
-                      return (
-                        <option value={v + i} key={i}>
-                          {v + i}
-                        </option>
-                      );
-                    })}
-                </Field>
-              </FormControl>
-            </div>
-
-            <Button type="submit">Add Student</Button>
-          </Form>
+            <SubmitButton type="submit">Add Student</SubmitButton>
+          </StyledForm>
         )}
       </Formik>
     </StyledAddNewStudent>
