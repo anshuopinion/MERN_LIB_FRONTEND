@@ -16,6 +16,15 @@ const StyledStudentControl = styled.section`
   width: 900px;
   height: 600px;
   grid-area: studentControl;
+  overflow-y: scroll;
+  scrollbar-width: 1rem;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.color.main};
+    border-radius: 5px;
+  }
 `;
 
 function StudentControls() {

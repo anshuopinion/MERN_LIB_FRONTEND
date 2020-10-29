@@ -7,13 +7,15 @@ import { StyledCard } from "../../../Elements";
 
 const Card = styled(StyledCard)`
   text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   .student-id {
     flex: 2;
   }
 
   .name {
     flex: 5;
-    
   }
   .semester {
     flex: 2;
