@@ -40,11 +40,11 @@ const Card = styled(StyledCard)`
   }
 `;
 
-function StudentList({ students, open }) {
+function StudentList({ students, createStudent,updateStudent }) {
   return (
     <>
-      <Card>
-        <i onClick={open}>
+      <Card >
+        <i onClick={createStudent}>
           <FontAwesomeIcon icon={faPlusCircle} size="3x" />
         </i>
       </Card>
@@ -62,7 +62,7 @@ function StudentList({ students, open }) {
           <span className="year">{student.data.year}</span>
           <div className="icons">
             <span>
-              <FontAwesomeIcon icon={faEdit} size="2x" onClick={open} />
+              <FontAwesomeIcon icon={faEdit} size="2x" onClick={updateStudent} />
             </span>
             <span>
               <FontAwesomeIcon

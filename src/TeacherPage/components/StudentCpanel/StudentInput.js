@@ -87,31 +87,42 @@ const ImagePanel = styled.div`
   }
 `;
 
-function AddNewStudent({ close }) {
+function StudentInput({ closeCreate, closeUpdate, update, student }) {
+  let initialValues;
+  console.log(update);
+  if (update) {
+    initialValues = {
+      name: student?.name,
+      student_id: student?.data.student_id,
+      mobile: student?.data.mobile,
+      library_card: student?.data.library_card,
+      // student_image: undefiend,
+      year: student?.data.year,
+      university_id: student?.data.university_id,
+    };
+  } else {
+    initialValues = {
+      name: "",
+      student_id: "",
+      mobile: "",
+      library_card: "",
+      // student_image: undefiend,
+      email: "",
+      password: "",
+      year: "",
+      university_id: "",
+    };
+  }
+
   return (
     <StyledAddNewStudent>
-      <Formik
-        initialValues={{
-          name: "",
-          student_id: "",
-          mobile: "",
-          library_card: "",
-          // student_image: undefiend,
-          email: "",
-          password: "",
-          year: "",
-          university_id: "",
-        }}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-      >
+      <Formik initialValues={initialValues} onSubmit={(values) => {}}>
         {(props) => (
           <StyledForm className="form">
             <FontAwesomeIcon
               className="crossBtn"
               icon={faTimes}
-              onClick={close}
+              onClick={update ? closeUpdate : closeCreate}
               size="2x"
             />
             <div className="form-container">
@@ -172,24 +183,28 @@ function AddNewStudent({ close }) {
                 </FormControl> */}
               </ImagePanel>
               <RightSide>
-                <FormControl>
-                  <FormLabel>Email:-</FormLabel>
-                  <Field
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Enter Email"
-                  />
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Password:-</FormLabel>
-                  <Field
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Enter Password"
-                  />
-                </FormControl>
+                {!update && (
+                  <>
+                    <FormControl>
+                      <FormLabel>Email:-</FormLabel>
+                      <Field
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="Enter Email"
+                      />
+                    </FormControl>
+                    <FormControl>
+                      <FormLabel>Password:-</FormLabel>
+                      <Field
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="Enter Password"
+                      />
+                    </FormControl>
+                  </>
+                )}
                 <FormControl>
                   <FormLabel>Year:-</FormLabel>
                   <Field
@@ -218,4 +233,4 @@ function AddNewStudent({ close }) {
   );
 }
 
-export default AddNewStudent;
+export default StudentInput;
