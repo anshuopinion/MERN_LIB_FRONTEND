@@ -91,7 +91,14 @@ const Center = styled.div`
   }
 `;
 
-function StudentInput({ closeCreate, closeUpdate, update, student }) {
+function StudentInput({
+  closeCreate,
+  closeUpdate,
+  update,
+  student,
+  createLoadedStudent,
+  updateLoadedStudent,
+}) {
   const [tempForm, setTempForm] = useState();
   const { sendRequest, error, clearError, loading } = useHttpClient();
   const [{ token }] = useStateValue();
@@ -136,7 +143,7 @@ function StudentInput({ closeCreate, closeUpdate, update, student }) {
 
       await sendRequest(`/students/${student._id}`, "patch", studentData, {
         Authorization: `${token}`,
-      }).then((res) => closeUpdate(res.data));
+      }).then((res) => updateLoadedStudent(res.data));
     } else {
       const studentData = {
         name: values.name,
@@ -153,7 +160,7 @@ function StudentInput({ closeCreate, closeUpdate, update, student }) {
       await sendRequest("/students/signup", "post", studentData, {
         Authorization: `${token}`,
       }).then((res) => {
-        closeCreate(res.data);
+        createLoadedStudent(res.data);
       });
     }
   };
