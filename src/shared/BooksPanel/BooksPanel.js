@@ -50,16 +50,16 @@ const BooksPanel = ({ disable }) => {
 
   // add new book to use State hook
   const createLoadedBooks = (book) => {
-    console.log(book);
+   
     setLoadedBooks([book, ...loadedBooks]);
-    console.log(loadedBooks);
+  
   };
 
   //
 
   const updateLoadedBook = async (book) => {
     // delete book with same id
-    await setLoadedBooks((prevLoadedBooks) =>
+   setLoadedBooks((prevLoadedBooks) =>
       prevLoadedBooks.filter((loadedBook) => book._id !== loadedBook._id)
     );
     // store book with same id

@@ -10,7 +10,7 @@ import { StyledCard } from "../../../../Elements";
 
 const Card = styled(StyledCard)`
   text-align: center;
-  .student-id {
+  .lib-card {
     flex: 2;
   }
   .profile-img {
@@ -49,13 +49,14 @@ function StudentList({ students, createStudent, updateStudent }) {
         </i>
       </Card>
       {students.map((student) => {
+        
         const onEdit = () => {
           updateStudent(student);
         };
 
         return (
           <Card key={student._id}>
-            <span className="student-id">{student.data.library_card}</span>
+            <span className="lib-card">{student.data.library_card}</span>
             <span className="profile-img">
               <img
                 src="https://cloudblogs.microsoft.com/industry-blog/wp-content/uploads/industry/sites/22/2019/08/tomhickling_avatar_1565623346.png"

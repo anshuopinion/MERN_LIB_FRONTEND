@@ -133,10 +133,10 @@ function StudentInput({ closeCreate, closeUpdate, update, student }) {
         year: values.year,
         university_id: values.university_id,
       };
-      console.log(student);
+
       await sendRequest(`/students/${student._id}`, "patch", studentData, {
         Authorization: `${token}`,
-      }).then(() => closeUpdate());
+      }).then((res) => closeUpdate(res.data));
     } else {
       const studentData = {
         name: values.name,
@@ -152,6 +152,8 @@ function StudentInput({ closeCreate, closeUpdate, update, student }) {
       setTempForm(studentData);
       await sendRequest("/students/signup", "post", studentData, {
         Authorization: `${token}`,
+      }).then(() => {
+        closeCreate(studentData);
       });
     }
   };
