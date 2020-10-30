@@ -96,7 +96,7 @@ function StudentInput({ closeCreate, closeUpdate, update, student }) {
   const { sendRequest, error, clearError, loading } = useHttpClient();
   const [{ token }] = useStateValue();
   let initialValues;
-  console.log(update);
+
   if (update) {
     initialValues = {
       name: student?.name,
@@ -152,8 +152,8 @@ function StudentInput({ closeCreate, closeUpdate, update, student }) {
       setTempForm(studentData);
       await sendRequest("/students/signup", "post", studentData, {
         Authorization: `${token}`,
-      }).then(() => {
-        closeCreate(studentData);
+      }).then((res) => {
+        closeCreate(res.data);
       });
     }
   };
