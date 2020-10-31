@@ -7,6 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
 import { StyledCard } from "../../../../Elements";
+import { useHttpClient } from "../../../../hooks/http-hooks";
+import ErrorModal from "../../../../shared/UI/ErrorModal";
+import Spinner from "../../../../shared/UI/Spinner";
+import { useStateValue } from "../../../../Store";
 
 const Card = styled(StyledCard)`
   text-align: center;
@@ -40,7 +44,19 @@ const Card = styled(StyledCard)`
   }
 `;
 
-function StudentList({ students, createStudent, updateStudent }) {
+function StudentList({
+  students,
+  createStudent,
+  updateStudent,
+  deleteStudentHandler,
+}) {
+  const { error, sendRequest, clearError, loading } = useHttpClient();
+const [{token}] = useStateValue()
+  const deleteStudent = async (student) => {
+    await sendRequest(`/students/${student._id}`, "delete",null,{Authorization:`${token}`}).then((res) => {
+      deleteStudentHandler(student._id);
+    });
+  };
   return (
     <>
       <Card>
@@ -49,35 +65,42 @@ function StudentList({ students, createStudent, updateStudent }) {
         </i>
       </Card>
       {students.map((student) => {
-        
         const onEdit = () => {
           updateStudent(student);
         };
 
         return (
           <Card key={student._id}>
-            <span className="lib-card">{student.data.library_card}</span>
-            <span className="profile-img">
-              <img
-                src="https://cloudblogs.microsoft.com/industry-blog/wp-content/uploads/industry/sites/22/2019/08/tomhickling_avatar_1565623346.png"
-                alt="man"
-              />
-            </span>
-            <span className="name">{student.name}</span>
-            <span className="semester">{student.data.semester}</span>
-            <span className="year">{student.data.year}</span>
-            <div className="icons">
-              <span>
-                <FontAwesomeIcon icon={faEdit} size="2x" onClick={onEdit} />
-              </span>
-              <span>
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  size="2x"
-                  // onClick={deleteBook}
-                />
-              </span>
-            </div>
+            <ErrorModal error={error} onClose={clearError} />
+            {loading ? (
+              <Spinner />
+            ) : (
+              <>
+                {" "}
+                <span className="lib-card">{student.data.library_card}</span>
+                <span className="profile-img">
+                  <img
+                    src="https://cloudblogs.microsoft.com/industry-blog/wp-content/uploads/industry/sites/22/2019/08/tomhickling_avatar_1565623346.png"
+                    alt="man"
+                  />
+                </span>
+                <span className="name">{student.name}</span>
+                <span className="semester">{student.data.semester}</span>
+                <span className="year">{student.data.year}</span>
+                <div className="icons">
+                  <span>
+                    <FontAwesomeIcon icon={faEdit} size="2x" onClick={onEdit} />
+                  </span>
+                  <span>
+                    <FontAwesomeIcon
+                      icon={faTrash}
+                      size="2x"
+                      onClick={() => deleteStudent(student)}
+                    />
+                  </span>
+                </div>
+              </>
+            )}
           </Card>
         );
       })}

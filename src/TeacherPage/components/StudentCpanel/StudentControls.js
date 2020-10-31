@@ -83,6 +83,12 @@ function StudentControls() {
     closeCreateStudent();
   };
 
+
+  const deleteStudentHandler = async (userId) => {
+    setLoadedStudents((prevLoadedStudents) =>
+      prevLoadedStudents.filter((student) => student._id !== userId)
+    );
+  };
   return (
     <>
       <ErrorModal error={error} onClose={clearError} />
@@ -107,6 +113,7 @@ function StudentControls() {
                 students={loadedStudents}
                 updateStudent={updateStudent}
                 createStudent={createStudent}
+                deleteStudentHandler={deleteStudentHandler}
               />
             </>
           )}
