@@ -56,19 +56,21 @@ function StudentControls() {
     setEditStudent(student);
   };
   const closeUpdateStudent = () => {
+
     setUpdate(false);
     setOpen(false);
   };
   const updateLoadedStudent = (student) => {
     setUpdate(false);
     setOpen(false);
+
     setLoadedStudents((prevLoadedBooks) =>
       prevLoadedBooks.filter(
         (loadedStudent) => student._id !== loadedStudent._id
       )
     );
-    // store book with same id
     setLoadedStudents((prevLoadedStudents) => [student, ...prevLoadedStudents]);
+    closeUpdateStudent();
   };
   const createStudent = () => {
     setOpen(true);
@@ -77,9 +79,10 @@ function StudentControls() {
     setOpen(false);
   };
   const createLoadedStudent = (student) => {
-    setOpen(false);
     setLoadedStudents((prevLoadedStudents) => [student, ...prevLoadedStudents]);
+    closeCreateStudent();
   };
+
   return (
     <>
       <ErrorModal error={error} onClose={clearError} />

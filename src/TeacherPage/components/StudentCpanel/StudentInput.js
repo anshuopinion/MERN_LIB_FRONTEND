@@ -91,14 +91,7 @@ const Center = styled.div`
   }
 `;
 
-function StudentInput({
-  closeCreate,
-  closeUpdate,
-  update,
-  student,
-  updateLoadedStudent,
-  createLoadedStudent,
-}) {
+function StudentInput({ closeCreate, closeUpdate, update, student,updateLoadedStudent,createLoadedStudent }) {
   const [tempForm, setTempForm] = useState();
   const { sendRequest, error, clearError, loading } = useHttpClient();
   const [{ token }] = useStateValue();
