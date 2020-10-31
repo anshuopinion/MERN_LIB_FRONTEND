@@ -4,7 +4,7 @@ import { useHttpClient } from "../../../hooks/http-hooks";
 import { useStateValue } from "../../../Store";
 import Spinner from "../../../shared/UI/Spinner";
 import StudentInput from "./StudentInput";
-import StudentListCard from "./StudentCard/StudentListCard";
+import StudentListCard from "./StudentCard/StudentListsCard";
 import ErrorModal from "../../../shared/UI/ErrorModal";
 import StudentListHead from "./StudentListHead";
 const StyledStudentControl = styled.section`
@@ -56,7 +56,6 @@ function StudentControls() {
     setEditStudent(student);
   };
   const closeUpdateStudent = () => {
-
     setUpdate(false);
     setOpen(false);
   };
@@ -82,7 +81,6 @@ function StudentControls() {
     setLoadedStudents((prevLoadedStudents) => [student, ...prevLoadedStudents]);
     closeCreateStudent();
   };
-
 
   const deleteStudentHandler = async (userId) => {
     setLoadedStudents((prevLoadedStudents) =>
