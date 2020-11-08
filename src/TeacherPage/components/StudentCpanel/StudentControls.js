@@ -29,7 +29,7 @@ const StyledStudentControl = styled.section`
 
 function StudentControls() {
   // const [loading, setLoading] = useState(true);
-  const [{ userId, token }] = useStateValue();
+  const [{ token }] = useStateValue();
   const [update, setUpdate] = useState(false);
   const [open, setOpen] = useState(false);
   const { loading, sendRequest, error, clearError } = useHttpClient();

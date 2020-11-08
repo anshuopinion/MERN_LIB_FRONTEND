@@ -5,7 +5,11 @@ import { useHttpClient } from "../../../../hooks/http-hooks";
 import ErrorModal from "../../../../shared/UI/ErrorModal";
 import Spinner from "../../../../shared/UI/Spinner";
 import { useStateValue } from "../../../../Store";
-import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faInfoCircle,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Card = styled(StyledCard)`
   text-align: center;
@@ -39,10 +43,10 @@ const Card = styled(StyledCard)`
   }
 `;
 
-function StudentCard({ student, deleteStudentHandler,updateStudent }) {
+function StudentCard({ student, deleteStudentHandler, updateStudent }) {
   const { error, sendRequest, clearError, loading } = useHttpClient();
   const [{ token }] = useStateValue();
-  
+
   const deleteStudent = async (student) => {
     await sendRequest(`/students/${student._id}`, "delete", null, {
       Authorization: `${token}`,
@@ -74,6 +78,9 @@ function StudentCard({ student, deleteStudentHandler,updateStudent }) {
           <div className="icons">
             <span>
               <FontAwesomeIcon icon={faEdit} size="2x" onClick={onEdit} />
+            </span>
+            <span>
+              <FontAwesomeIcon icon={faInfoCircle} size="2x" onClick="" />
             </span>
             <span>
               <FontAwesomeIcon

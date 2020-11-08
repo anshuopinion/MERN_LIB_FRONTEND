@@ -91,7 +91,14 @@ const Center = styled.div`
   }
 `;
 
-function StudentInput({ closeCreate, closeUpdate, update, student,updateLoadedStudent,createLoadedStudent }) {
+function StudentInput({
+  closeCreate,
+  closeUpdate,
+  update,
+  student,
+  updateLoadedStudent,
+  createLoadedStudent,
+}) {
   const [tempForm, setTempForm] = useState();
   const { sendRequest, error, clearError, loading } = useHttpClient();
   const [{ token }] = useStateValue();
@@ -214,20 +221,20 @@ function StudentInput({ closeCreate, closeUpdate, update, student,updateLoadedSt
                 <Center>
                   <div className="image">Image Preview</div>
                   {/* <FormControl>
-                  <FormLabel>Upload Image</FormLabel>
-                  <input
-                    className="upload-input"
-                    type="file"
-                    name="student_image"
-                    id="student_image"
-                    onChange={(event) => {
-                      props.setFieldValue(
-                        "student_image",
-                        event.target.files[0]
-                      );
-                    }}
-                  />
-                </FormControl> */}
+                    <FormLabel>Upload Image</FormLabel>
+                    <input
+                      className="upload-input"
+                      type="file"
+                      name="student_image"
+                      id="student_image"
+                      onChange={(event) => {
+                        props.setFieldValue(
+                          "student_image",
+                          event.target.files[0]
+                        );
+                      }}
+                    />
+                  </FormControl> */}
                   {!update && (
                     <FormControl>
                       <FormLabel>Semester:-</FormLabel>
