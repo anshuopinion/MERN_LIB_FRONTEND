@@ -13,3 +13,10 @@ const Button = styled(btn)`
 export const SubmitButton = styled(Button)`
   padding: 0.3rem 3rem;
 `;
+
+export const HomeLoginButton = styled(Button)`
+  width: 260px;
+  height: 150px;
+  font-size: 1.7rem;
+  color: ${(props) => props.theme.color.light};
+`;

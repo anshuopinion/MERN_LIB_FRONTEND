@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { StyledCard } from "../../../../Elements";
-import { useHttpClient } from "../../../../hooks/http-hooks";
-import ErrorModal from "../../../../shared/UI/ErrorModal";
-import Spinner from "../../../../shared/UI/Spinner";
-import { useStateValue } from "../../../../Store";
+import { StyledCard } from "../../../../../Elements";
+import { useHttpClient } from "../../../../../hooks/http-hooks";
+import ErrorModal from "../../../../../shared/UI/ErrorModal";
+import Spinner from "../../../../../shared/UI/Spinner";
+import { useStateValue } from "../../../../../Store";
 import {
   faEdit,
   faInfoCircle,

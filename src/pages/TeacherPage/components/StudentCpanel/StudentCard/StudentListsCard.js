@@ -2,7 +2,7 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import styled from "styled-components";
-import { StyledCard } from "../../../../Elements";
+import { StyledCard } from "../../../../../Elements";
 import StudentCard from "./StudentCard";
 const Card = styled(StyledCard)`
   text-align: center;

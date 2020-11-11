@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import styled from "styled-components";
-import { StyledCard } from "../../../Elements";
+import { StyledCard } from "../../../../Elements";
 
 const Card = styled(StyledCard)`
   text-align: center;

@@ -7,16 +7,16 @@ import {
   Redirect,
 } from "react-router-dom";
 import GlobalStyle from "./theme/globalStyles";
-import { ThemeProvider } from "styled-components";
-import Login from "./shared/Login";
-import StudentPage from "./StudentPage/Student";
 import theme from "./theme/theme";
 import { StylesProvider } from "@material-ui/core/styles";
-import Teacher from "./TeacherPage/Teacher";
-import Admin from "./AdminPage/Admin";
 import { useStateValue } from "./Store";
 import { useAuth } from "./hooks/auth-hooks";
-import Home from "./HomePage/Home";
+import { ThemeProvider } from "styled-components";
+import Login from "./shared/Login";
+import StudentPage from "./pages/StudentPage/Student";
+import Teacher from "./pages/TeacherPage/Teacher";
+import Admin from "./pages/AdminPage/Admin";
+import Home from "./pages/HomePage/Home";
 function App() {
   const [{ token, role }] = useStateValue();
   const { setCookieLogin } = useAuth();

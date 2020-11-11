@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from "react";
-import StudentProfile from "./components/StudentProfile";
 import styled from "styled-components";
-import BooksPanel from "../shared/BooksPanel/BooksPanel";
-import PersonalBooks from "./components/PersonalBooks";
-import RecentUpdates from "./components/RecentUpdates";
-import SharedBooks from "./components/SharedBooks";
-import { MainContainer, Background } from "../Elements";
-import { useStateValue } from "../Store";
+import BooksPanel from "../../shared/BooksPanel/BooksPanel";
+
+import LibraryStatus from "./components/LibraryStatus";
+import StudentControls from "./components/StudentCpanel/StudentControls";
+import TeacherProfile from "./components/TeacherProfile";
+import { MainContainer, Background } from "../../Elements";
+import { useStateValue } from "../../Store";
 import { useHistory } from "react-router-dom";
-import { useHttpClient } from "../hooks/http-hooks";
+import { useAuth } from "../../hooks/auth-hooks";
+import { useHttpClient } from "../../hooks/http-hooks";
+import ErrorModal from "../../shared/UI/ErrorModal";
+import Spinner from "../../shared/UI/Spinner";
 
-import ErrorModal from "../shared/UI/ErrorModal";
-import Spinner from "../shared/UI/Spinner";
-import { useAuth } from "../hooks/auth-hooks";
-
-const StyledStudent = styled.div`
+const StyledTeacher = styled.div`
   display: grid;
+  background-color: #000;
   grid-template-areas:
     "student-profile book-panel book-panel"
-    "recent-updates book-panel book-panel"
-    "recent-updates my-book my-book"
-    "recent-updates my-book my-book"
+    "libStatus book-panel book-panel"
+    "libStatus studentControl studentControl"
+    "recent-updates studentControl studentControl"
     "shared-book shared-book shared-book";
   grid-gap: 1rem;
 `;
 
-const Student = () => {
+const Teacher = () => {
   const [{ userId, token }] = useStateValue();
   const [loading, setLoading] = useState(true);
   const { sendRequest, error, clearError } = useHttpClient();
@@ -35,7 +35,7 @@ const Student = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      await sendRequest(`/students/${userId}`, "get", null, {
+      await sendRequest(`/teachers/${userId}`, "get", null, {
         Authorization: `${token}`,
       })
         .then((res) => {
@@ -44,6 +44,7 @@ const Student = () => {
         })
         .catch((err) => {});
     };
+
     if (userId) {
       fetchUser();
     }
@@ -51,10 +52,10 @@ const Student = () => {
       history.replace("/");
     }
   }, [userId, sendRequest, history, token]);
+
   const signout = () => {
     logout();
   };
-
   return (
     <>
       <ErrorModal error={error} onClose={clearError} />
@@ -63,13 +64,12 @@ const Student = () => {
       ) : (
         <Background>
           <MainContainer>
-            <StyledStudent>
-              <StudentProfile signout={signout} user={loadedUser} />
-              <BooksPanel disable />
-              <PersonalBooks />
-              <RecentUpdates />
-              <SharedBooks />
-            </StyledStudent>
+            <StyledTeacher>
+              <TeacherProfile signout={signout} user={loadedUser} />
+              <BooksPanel />
+              <LibraryStatus />
+              <StudentControls />
+            </StyledTeacher>
           </MainContainer>
         </Background>
       )}
@@ -77,4 +77,4 @@ const Student = () => {
   );
 };
 
-export default Student;
+export default Teacher;

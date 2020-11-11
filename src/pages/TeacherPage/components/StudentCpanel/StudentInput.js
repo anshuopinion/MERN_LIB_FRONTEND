@@ -3,13 +3,13 @@ import { Field as F, Form, Formik } from "formik";
 import { FormControl as FC, FormLabel as FL } from "@material-ui/core";
 import styled from "styled-components";
 // import { TextField } from "formik-material-ui";
-import { SubmitButton } from "../../../Elements/Button";
+import { SubmitButton } from "../../../../Elements/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useHttpClient } from "../../../hooks/http-hooks";
-import { useStateValue } from "../../../Store";
-import Spinner from "../../../shared/UI/Spinner";
-import ErrorModal from "../../../shared/UI/ErrorModal";
+import { useHttpClient } from "../../../../hooks/http-hooks";
+import { useStateValue } from "../../../../Store";
+import Spinner from "../../../../shared/UI/Spinner";
+import ErrorModal from "../../../../shared/UI/ErrorModal";
 
 const StyledAddNewStudent = styled.div``;
 const StyledForm = styled(Form)`
