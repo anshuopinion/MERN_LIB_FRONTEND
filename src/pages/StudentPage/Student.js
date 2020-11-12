@@ -61,17 +61,17 @@ const Student = () => {
       {loading ? (
         <Spinner fullPage />
       ) : (
-        <Background>
-          <MainContainer>
-            <StyledStudent>
-              <StudentProfile signout={signout} user={loadedUser} />
-              <BooksPanel disable />
-              <PersonalBooks />
-              <RecentUpdates />
-              <SharedBooks />
-            </StyledStudent>
-          </MainContainer>
-        </Background>
+       
+        <MainContainer>
+          <StyledStudent>
+            <StudentProfile signout={signout} user={loadedUser} />
+            <BooksPanel disable />
+            <PersonalBooks />
+            <RecentUpdates />
+            <SharedBooks />
+          </StyledStudent>
+        </MainContainer>
+     
       )}
     </>
   );

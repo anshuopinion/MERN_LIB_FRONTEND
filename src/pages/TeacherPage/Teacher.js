@@ -62,7 +62,7 @@ const Teacher = () => {
       {loading ? (
         <Spinner fullPage />
       ) : (
-        <Background>
+      
           <MainContainer>
             <StyledTeacher>
               <TeacherProfile signout={signout} user={loadedUser} />
@@ -71,7 +71,7 @@ const Teacher = () => {
               <StudentControls />
             </StyledTeacher>
           </MainContainer>
-        </Background>
+     
       )}
     </>
   );
